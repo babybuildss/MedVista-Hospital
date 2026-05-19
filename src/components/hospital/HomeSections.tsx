@@ -166,34 +166,38 @@ function CentresOfExcellence() {
         </motion.div>
       </div>
 
-      {/* Horizontal scroll on desktop, vertical on mobile */}
-      <div className="md:horizontal-scroll flex flex-col md:flex-row gap-6 md:gap-8 px-6 lg:px-8 pb-4">
-        {centres.map((centre, i) => (
-          <motion.div
-            key={centre.name}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.15 }}
-            className="group flex-shrink-0 w-full md:w-[420px] lg:w-[480px]"
-          >
-            <div className="relative h-[300px] sm:h-[360px] overflow-hidden rounded-sm mb-5">
-              <Image
-                src={centre.image}
-                alt={centre.name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 480px"
-              />
-            </div>
-            <h3 className="font-display text-2xl sm:text-3xl text-charcoal mb-2 group-hover:text-sage transition-colors duration-300">
-              {centre.name}
-            </h3>
-            <p className="font-body text-base text-charcoal-light leading-relaxed">
-              {centre.desc}
-            </p>
-          </motion.div>
-        ))}
+      {/* Grid layout with compact cards */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {centres.map((centre, i) => (
+            <motion.div
+              key={centre.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="group"
+            >
+              <div className="relative h-[200px] sm:h-[220px] overflow-hidden rounded-sm mb-4">
+                <Image
+                  src={centre.image}
+                  alt={centre.name}
+                  fill
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                {/* Subtle overlay on hover */}
+                <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/10 transition-colors duration-500" />
+              </div>
+              <h3 className="font-display text-xl sm:text-2xl text-charcoal mb-1.5 group-hover:text-sage transition-colors duration-300">
+                {centre.name}
+              </h3>
+              <p className="font-body text-sm text-charcoal-light leading-relaxed">
+                {centre.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
