@@ -42,7 +42,6 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Design system colors */
   --color-ivory: #F5F0EB;
   --color-ivory-dark: #EDE6DD;
   --color-charcoal: #1A1A1A;
@@ -56,7 +55,6 @@
   --color-warm-gray: #9B958C;
   --color-border-custom: #E0D8CE;
 
-  /* Font families */
   --font-display: var(--font-playfair);
   --font-body: var(--font-dm-sans);
 }
@@ -112,20 +110,20 @@
   }
 }
 
-/* ── Noise texture overlay for premium feel ── */
+/* ── Subtle noise overlay ── */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.018;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  background-size: 180px 180px;
+  background-size: 180px;
 }
 
-/* ── Custom selection ── */
+/* ── Selection ── */
 ::selection {
   background-color: #7A8B6F;
   color: white;
@@ -133,46 +131,68 @@ body::after {
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #F5F0EB; }
-::-webkit-scrollbar-thumb { background: #C4BAB0; border-radius: 10px; }
+::-webkit-scrollbar-track { background: #1A1A1A; }
+::-webkit-scrollbar-thumb { background: #3D3D3D; border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: #7A8B6F; }
 
-/* ── Font families ── */
+/* ── Fonts ── */
 .font-display { font-family: var(--font-display); }
 .font-body { font-family: var(--font-body); }
 
-/* ── Reveal animation: clip from bottom ── */
-@keyframes clip-reveal {
-  0% { clip-path: inset(100% 0 0 0); transform: translateY(20px); }
-  100% { clip-path: inset(0 0 0 0); transform: translateY(0); }
-}
-.animate-clip-reveal {
-  animation: clip-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* ── Line grow animation ── */
-@keyframes line-grow {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
-.animate-line-grow {
-  animation: line-grow 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transform-origin: left;
+/* ── Hero gradient overlay ── */
+.hero-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0.55) 0%,
+    rgba(26, 26, 26, 0.35) 40%,
+    rgba(26, 26, 26, 0.7) 100%
+  );
 }
 
-/* ── Fade in with slight upward motion ── */
-@keyframes fade-up {
-  0% { opacity: 0; transform: translateY(24px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-up {
-  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* ── Section gradient backgrounds ── */
+.gradient-sage {
+  background: linear-gradient(135deg, #5C6B52 0%, #7A8B6F 50%, #8FA084 100%);
 }
 
-/* ── Counter pulse ── */
-@keyframes counter-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+.gradient-dark {
+  background: linear-gradient(180deg, #1A1A1A 0%, #2A2A2A 100%);
+}
+
+.gradient-warm {
+  background: linear-gradient(135deg, #C17B5A 0%, #D4956E 60%, #E8C4B0 100%);
+}
+
+/* ── Image overlay ── */
+.image-overlay {
+  position: relative;
+}
+.image-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,26,26,0.6) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ── Glass card ── */
+.glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.glass-light {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+/* ── Rotated text ── */
+.rotated-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 /* ── Smooth accordion ── */
@@ -188,8 +208,16 @@ body::after {
   overflow: hidden;
 }
 
-/* ── Decorative rotated text ── */
-.rotated-text {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+/* ── Keyframes ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }

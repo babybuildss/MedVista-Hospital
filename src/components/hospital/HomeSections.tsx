@@ -16,160 +16,157 @@ const DNAHelixScene = dynamic(() => import('@/components/hospital/DNAHelix'), {
   ),
 });
 
-/* ──────────────────────────────────────
-   PHILOSOPHY — Large editorial text reveal
-   ────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   PHILOSOPHY — Full-width cinematic text
+   ═══════════════════════════════════════ */
 function PhilosophySection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-10%' });
+  const isInView = useInView(sectionRef, { once: true, margin: '-5%' });
 
   return (
-    <section ref={sectionRef} className="bg-cream py-24 sm:py-32 md:py-40 relative overflow-hidden">
-      {/* Decorative side text */}
-      <div className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 rotated-text font-body text-[10px] tracking-[0.4em] uppercase text-border-custom select-none hidden lg:block">
-        MedVista Premier
+    <section ref={sectionRef} className="gradient-dark py-28 sm:py-40 md:py-52 relative overflow-hidden">
+      {/* Decorative large year */}
+      <div className="absolute top-8 right-8 font-display text-[120px] sm:text-[200px] text-white/[0.03] leading-none select-none pointer-events-none">
+        1998
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-        <div className="font-display text-charcoal leading-snug sm:leading-tight">
-          <div className="text-2xl sm:text-3xl md:text-5xl lg:text-[3.5rem] mb-1 sm:mb-2">
+      <div className="max-w-[1000px] mx-auto px-6 sm:px-8 lg:px-12 text-center relative z-10">
+        <div className="font-display text-white leading-snug sm:leading-tight">
+          <div className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.8rem] mb-1 sm:mb-2">
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0 }}
+              transition={{ duration: 0.7, delay: 0 }}
               className="inline-block mr-[0.25em]"
             >
               Medicine
             </motion.span>
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
               className="inline-block mr-[0.25em]"
             >
               is
             </motion.span>
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
               className="inline-block mr-[0.25em]"
             >
               not
             </motion.span>
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.45 }}
+              transition={{ duration: 0.7, delay: 0.6 }}
               className="inline-block mr-[0.25em]"
             >
               just
             </motion.span>
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              transition={{ duration: 0.7, delay: 0.8 }}
               className="inline-block"
             >
               science.
             </motion.span>
           </div>
-          <div className="text-2xl sm:text-3xl md:text-5xl lg:text-[3.5rem] mb-1 sm:mb-2">
+          <div className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.8rem] mb-1 sm:mb-2">
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="inline-block mr-[0.25em] italic text-sage"
+              transition={{ duration: 0.7, delay: 1.1 }}
+              className="inline-block mr-[0.25em] italic text-sage-light"
             >
               It's
             </motion.span>
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.95 }}
+              transition={{ duration: 0.7, delay: 1.3 }}
               className="inline-block mr-[0.25em]"
             >
               the
             </motion.span>
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 1.1 }}
-              className="inline-block mr-[0.25em] italic text-sage"
+              transition={{ duration: 0.7, delay: 1.5 }}
+              className="inline-block mr-[0.25em] italic text-sage-light"
             >
               art
             </motion.span>
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 1.25 }}
+              transition={{ duration: 0.7, delay: 1.7 }}
               className="inline-block"
             >
               of
             </motion.span>
           </div>
-          <div className="text-2xl sm:text-3xl md:text-5xl lg:text-[3.5rem]">
+          <div className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.8rem]">
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 1.45 }}
+              transition={{ duration: 0.7, delay: 2 }}
               className="inline-block mr-[0.25em]"
             >
               understanding
             </motion.span>
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 1.6 }}
-              className="inline-block mr-[0.25em]"
-            >
-              a
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0.12 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 1.75 }}
-              className="inline-block mr-[0.25em] italic text-sage"
+              transition={{ duration: 0.7, delay: 2.2 }}
+              className="inline-block mr-[0.25em] italic text-sage-light"
             >
               human
             </motion.span>
             <motion.span
-              initial={{ opacity: 0.12 }}
+              initial={{ opacity: 0.08 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 1.9 }}
-              className="inline-block italic text-sage"
+              transition={{ duration: 0.7, delay: 2.4 }}
+              className="inline-block italic text-sage-light"
             >
-              story.
+              stories.
             </motion.span>
           </div>
         </div>
+
+        {/* Decorative line */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 1.2, delay: 2.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-8 sm:mt-12 h-px max-w-24 mx-auto bg-gradient-to-r from-transparent via-sage-light/50 to-transparent origin-center"
+        />
       </div>
     </section>
   );
 }
 
-/* ──────────────────────────────────────
-   CENTRES OF EXCELLENCE — Editorial list
-   ────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   CENTRES OF EXCELLENCE — Bold image cards
+   ═══════════════════════════════════════ */
 function CentresOfExcellence() {
   const centres = [
     {
       name: 'Cardiac Sciences',
       desc: 'Pioneering minimally invasive cardiac procedures with outcomes that set global benchmarks.',
       image: '/images/doctor-1.png',
-      number: '01',
     },
     {
       name: 'Neuro Sciences',
       desc: 'Advanced neurosurgery and neuro-rehabilitation guided by precision imaging technology.',
       image: '/images/doctor-2.png',
-      number: '02',
     },
     {
       name: 'Oncology',
       desc: 'Comprehensive cancer care from early detection to personalized immunotherapy protocols.',
       image: '/images/doctor-3.png',
-      number: '03',
     },
   ];
 
@@ -187,8 +184,8 @@ function CentresOfExcellence() {
             <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
               Centres of Excellence
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2">
-              Where Expertise<br />Meets Empathy
+            <h2 className="font-display text-3xl sm:text-4xl md:text-[3.2rem] text-charcoal tracking-tight mt-2 leading-tight">
+              Where Expertise<br />Meets <span className="italic text-sage">Empathy</span>
             </h2>
           </motion.div>
           <motion.div
@@ -199,7 +196,7 @@ function CentresOfExcellence() {
           >
             <Link
               href="/departments"
-              className="inline-flex items-center gap-2 font-body text-[13px] text-sage hover:text-sage-dark transition-colors duration-300 group"
+              className="inline-flex items-center gap-2 font-body text-[13px] text-charcoal hover:text-sage transition-colors duration-300 group"
             >
               View all departments
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -207,44 +204,45 @@ function CentresOfExcellence() {
           </motion.div>
         </div>
 
-        {/* Cards — editorial horizontal layout */}
-        <div className="space-y-0">
+        {/* Cards — dramatic image-first layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           {centres.map((centre, i) => (
             <motion.div
               key={centre.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.6, delay: i * 0.12 }}
+              className="group relative"
             >
-              <Link
-                href="/departments"
-                className="group grid grid-cols-1 md:grid-cols-[80px_1fr_200px] lg:grid-cols-[80px_1fr_280px] gap-4 md:gap-8 items-center py-6 sm:py-8 border-b border-border-custom hover:border-sage/40 transition-colors duration-500"
-              >
-                {/* Number */}
-                <span className="font-display text-2xl sm:text-3xl text-sage/30 group-hover:text-sage transition-colors duration-500 hidden md:block">
-                  {centre.number}
-                </span>
-
-                {/* Text */}
-                <div>
-                  <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-charcoal group-hover:text-sage transition-colors duration-300 mb-1">
-                    {centre.name}
-                  </h3>
-                  <p className="font-body text-[13px] sm:text-sm text-warm-gray leading-relaxed max-w-lg group-hover:text-charcoal-light transition-colors duration-300">
-                    {centre.desc}
-                  </p>
-                </div>
-
-                {/* Thumbnail */}
-                <div className="relative h-[140px] sm:h-[160px] overflow-hidden rounded-sm">
+              <Link href="/departments" className="block">
+                {/* Image with overlay */}
+                <div className="relative h-[380px] sm:h-[420px] lg:h-[480px] overflow-hidden">
                   <Image
                     src={centre.image}
                     alt={centre.name}
                     fill
-                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                    sizes="280px"
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
+                  {/* Dark gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
+
+                  {/* Content over image */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
+                    <div className="font-body text-[9px] tracking-[0.25em] uppercase text-white/40 mb-2">
+                      {String(i + 1).padStart(2, '0')}
+                    </div>
+                    <h3 className="font-display text-xl sm:text-2xl text-white mb-1 group-hover:text-sage-light transition-colors duration-300">
+                      {centre.name}
+                    </h3>
+                    <p className="font-body text-[12px] sm:text-[13px] text-white/55 leading-relaxed max-w-[260px]">
+                      {centre.desc}
+                    </p>
+                    <div className="mt-3 inline-flex items-center gap-1.5 font-body text-[11px] text-sage-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      Learn more <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </div>
                 </div>
               </Link>
             </motion.div>
@@ -255,9 +253,9 @@ function CentresOfExcellence() {
   );
 }
 
-/* ──────────────────────────────────────
-   STATS — Dark section with counters
-   ────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   STATS — Bold dark with sage gradient accent
+   ═══════════════════════════════════════ */
 function StatsSection() {
   const stats = [
     { value: 500, suffix: '+', label: 'Hospital Beds' },
@@ -267,12 +265,13 @@ function StatsSection() {
   ];
 
   return (
-    <section className="bg-charcoal py-16 sm:py-20 relative overflow-hidden">
-      {/* Subtle background accent */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-sage/5 rounded-full blur-[150px] pointer-events-none" />
+    <section className="gradient-sage py-16 sm:py-20 relative overflow-hidden">
+      {/* Decorative shapes */}
+      <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-white/5 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-10 -right-10 w-60 h-60 rounded-full bg-charcoal/10 blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -280,12 +279,12 @@ function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`text-center ${i > 0 ? 'md:border-l md:border-white/10' : ''} md:px-8`}
+              className={`text-center ${i > 0 ? 'md:border-l md:border-white/15' : ''} md:px-6`}
             >
-              <div className="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-1.5">
+              <div className="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-1">
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="font-body text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-white/35">
+              <div className="font-body text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-white/45">
                 {stat.label}
               </div>
             </motion.div>
@@ -322,13 +321,18 @@ function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: str
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-/* ──────────────────────────────────────
+/* ═══════════════════════════════════════
    TECHNOLOGY — Split with 3D DNA
-   ────────────────────────────────────── */
+   ═══════════════════════════════════════ */
 function TechnologySection() {
   return (
-    <section className="bg-cream py-20 sm:py-28">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+    <section className="bg-cream py-20 sm:py-28 relative overflow-hidden">
+      {/* Decorative bg number */}
+      <div className="absolute top-0 right-0 font-display text-[300px] text-charcoal/[0.02] leading-none select-none pointer-events-none hidden lg:block">
+        DNA
+      </div>
+
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -339,7 +343,7 @@ function TechnologySection() {
             <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
               Precision Medicine
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-3 mb-6 leading-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2 mb-6 leading-tight">
               At the Forefront of{' '}
               <span className="italic text-sage">Genomic Research</span>
             </h2>
@@ -357,7 +361,7 @@ function TechnologySection() {
                 'Genetic Counseling',
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2.5">
-                  <div className="w-1 h-1 rounded-full bg-sage flex-shrink-0" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-sage flex-shrink-0" />
                   <span className="font-body text-[13px] text-charcoal-light">{item}</span>
                 </div>
               ))}
@@ -368,7 +372,10 @@ function TechnologySection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
+            className="relative"
           >
+            {/* Decorative frame around 3D */}
+            <div className="absolute -inset-4 border border-sage/10 rounded-sm pointer-events-none" />
             <DNAHelixScene />
           </motion.div>
         </div>
@@ -377,9 +384,9 @@ function TechnologySection() {
   );
 }
 
-/* ──────────────────────────────────────
-   PATIENT STORIES — Elegant quotes
-   ────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   PATIENT STORIES — Dark cinematic quotes
+   ═══════════════════════════════════════ */
 function PatientStories() {
   const stories = [
     {
@@ -395,8 +402,11 @@ function PatientStories() {
   ];
 
   return (
-    <section className="bg-ivory py-20 sm:py-28 relative">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+    <section className="gradient-dark py-20 sm:py-28 relative overflow-hidden">
+      {/* Decorative */}
+      <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-sage/5 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -404,15 +414,15 @@ function PatientStories() {
           transition={{ duration: 0.5 }}
           className="mb-14 sm:mb-20"
         >
-          <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
+          <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage-light">
             Patient Stories
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white tracking-tight mt-2">
             Voices of Trust
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 sm:gap-16 lg:gap-24">
+        <div className="grid md:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
           {stories.map((story, i) => (
             <motion.blockquote
               key={story.name}
@@ -420,23 +430,25 @@ function PatientStories() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="glass rounded-sm p-6 sm:p-8"
             >
-              {/* Quote mark */}
-              <div className="font-display text-[80px] sm:text-[100px] text-sage/10 leading-none -mb-10 -ml-1 select-none">
+              <div className="font-display text-[60px] sm:text-[80px] text-sage-light/20 leading-none -mb-6 -ml-1 select-none">
                 &ldquo;
               </div>
-              <p className="font-display text-lg sm:text-xl md:text-2xl text-charcoal leading-relaxed mb-6">
+              <p className="font-display text-lg sm:text-xl md:text-2xl text-white leading-relaxed mb-6">
                 {story.quote}
               </p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-sage-light flex items-center justify-center">
-                  <span className="font-display text-sm text-sage">{story.name.split(' ').map(n => n[0]).join('')}</span>
+              <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                <div className="w-10 h-10 rounded-full bg-sage/20 flex items-center justify-center">
+                  <span className="font-display text-sm text-sage-light">
+                    {story.name.split(' ').map(n => n[0]).join('')}
+                  </span>
                 </div>
                 <div>
-                  <div className="font-body text-[13px] font-medium text-charcoal">
+                  <div className="font-body text-[13px] font-medium text-white">
                     {story.name}
                   </div>
-                  <div className="font-body text-[11px] text-warm-gray">
+                  <div className="font-body text-[11px] text-white/40">
                     {story.detail}
                   </div>
                 </div>
@@ -449,14 +461,15 @@ function PatientStories() {
   );
 }
 
-/* ──────────────────────────────────────
-   CTA — Terracotta section
-   ────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   CTA — Full-width terracotta
+   ═══════════════════════════════════════ */
 function CTASection() {
   return (
-    <section className="bg-terracotta py-16 sm:py-20 relative overflow-hidden">
-      {/* Decorative element */}
-      <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-white/5 skew-x-[-6deg] translate-x-1/4 pointer-events-none" />
+    <section className="gradient-warm py-20 sm:py-24 relative overflow-hidden">
+      {/* Decorative shape */}
+      <div className="absolute right-0 top-0 bottom-0 w-2/5 bg-white/[0.07] skew-x-[-8deg] translate-x-1/4 pointer-events-none" />
+      <div className="absolute left-0 bottom-0 w-1/3 h-1/2 bg-charcoal/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 text-center relative z-10">
         <motion.div
@@ -465,16 +478,16 @@ function CTASection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white tracking-tight mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-[3.5rem] text-white tracking-tight mb-4 leading-tight">
             Begin Your Journey
           </h2>
-          <p className="font-body text-[14px] sm:text-[15px] text-white/65 max-w-lg mx-auto mb-8">
+          <p className="font-body text-[14px] sm:text-[15px] text-white/60 max-w-lg mx-auto mb-8">
             Take the first step toward world-class healthcare. Our team is ready
             to guide you every step of the way.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-white text-terracotta font-body text-[13px] font-medium rounded-full hover:bg-ivory transition-colors duration-300 group"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-white text-terracotta font-body text-[13px] font-medium rounded-full hover:bg-ivory transition-colors duration-300 group shadow-lg shadow-charcoal/10"
           >
             Book an Appointment
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -485,30 +498,31 @@ function CTASection() {
   );
 }
 
-/* ──────────────────────────────────────
-   ABOUT TEASER — Split with image
-   ────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   ABOUT TEASER — Asymmetric overlapping
+   ═══════════════════════════════════════ */
 function AboutTeaser() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section ref={sectionRef} className="bg-ivory-dark py-20 sm:py-28">
+    <section ref={sectionRef} className="bg-ivory py-20 sm:py-28 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-0 items-center">
+          {/* Image — overlapping the next section */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="relative lg:pr-16"
           >
             <motion.div style={{ y: imageY }}>
-              <div className="relative h-[320px] sm:h-[400px] lg:h-[480px] overflow-hidden">
+              <div className="relative h-[340px] sm:h-[440px] lg:h-[520px] overflow-hidden">
                 <Image
                   src="/images/about-hospital.png"
                   alt="About MedVista"
@@ -518,14 +532,26 @@ function AboutTeaser() {
                 />
               </div>
             </motion.div>
-            {/* Decorative corner accent */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-r-2 border-b-2 border-sage/20 pointer-events-none" />
+            {/* Overlapping accent card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="absolute -bottom-6 right-0 lg:-right-4 bg-charcoal text-white p-5 sm:p-6 shadow-xl max-w-[200px]"
+            >
+              <div className="font-display text-3xl sm:text-4xl text-sage-light leading-none">25+</div>
+              <div className="font-body text-[9px] tracking-[0.2em] uppercase text-white/45 mt-1">Years of Excellence</div>
+            </motion.div>
           </motion.div>
+
+          {/* Text */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:pl-8 lg:pt-8 mt-8 lg:mt-0"
           >
             <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
               Our Story
@@ -556,9 +582,9 @@ function AboutTeaser() {
   );
 }
 
-/* ──────────────────────────────────────
-   DEPARTMENTS TEASER — Minimal list
-   ────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   DEPARTMENTS TEASER — Sticky heading + scrollable list
+   ═══════════════════════════════════════ */
 function DepartmentsTeaser() {
   const departments = [
     { name: 'Cardiology', number: '01' },
@@ -569,7 +595,7 @@ function DepartmentsTeaser() {
   ];
 
   return (
-    <section className="bg-ivory py-20 sm:py-28">
+    <section className="bg-ivory-dark py-20 sm:py-28">
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20">
           {/* Left: heading */}
@@ -591,7 +617,7 @@ function DepartmentsTeaser() {
             </p>
             <Link
               href="/departments"
-              className="inline-flex items-center gap-2 mt-6 font-body text-[13px] text-sage hover:text-sage-dark transition-colors duration-300 group"
+              className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 bg-charcoal text-ivory font-body text-[13px] rounded-full hover:bg-charcoal-light transition-colors duration-300 group"
             >
               View all
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -613,7 +639,7 @@ function DepartmentsTeaser() {
                   className="group flex items-center justify-between py-5 sm:py-6 border-b border-border-custom hover:border-sage/40 transition-colors duration-400"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="font-body text-[11px] text-warm-gray/60 tabular-nums">
+                    <span className="font-body text-[11px] text-warm-gray/40 tabular-nums">
                       {dept.number}
                     </span>
                     <span className="font-display text-xl sm:text-2xl text-charcoal group-hover:text-sage transition-colors duration-300">
