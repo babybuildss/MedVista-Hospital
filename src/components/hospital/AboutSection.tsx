@@ -3,55 +3,60 @@
 import { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import PageHero from '@/components/hospital/PageHero';
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ─── Story Section ─── */
 function StorySection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+
   return (
-    <section className="bg-ivory py-16 sm:py-24">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section ref={sectionRef} className="bg-ivory py-16 sm:py-24">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          {/* Left: Large image */}
+          {/* Image */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative -mb-24 lg:-mb-32 z-10"
+            transition={{ duration: 0.6 }}
+            className="relative -mb-16 lg:-mb-24 z-10"
           >
-            <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] overflow-hidden">
-              <Image
-                src="/images/about-hospital.png"
-                alt="MedVista Hospital founding"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
+            <motion.div style={{ y: imageY }}>
+              <div className="relative h-[360px] sm:h-[460px] lg:h-[560px] overflow-hidden">
+                <Image
+                  src="/images/about-hospital.png"
+                  alt="MedVista Hospital founding"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* Right: Narrative text */}
+          {/* Text */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="pt-0 lg:pt-24"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="pt-0 lg:pt-20"
           >
-            <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+            <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
               Our Story
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-3 mb-6 leading-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2 mb-5 leading-tight">
               Founded on a Belief in{' '}
               <span className="italic text-sage">Better</span>
             </h2>
-            <div className="h-[1.5px] w-16 bg-sage mb-6" />
-            <div className="space-y-4 font-body text-base md:text-lg text-charcoal-light leading-relaxed">
+            <div className="h-px w-12 bg-sage mb-5" />
+            <div className="space-y-4 font-body text-[14px] sm:text-[15px] text-charcoal-light leading-relaxed max-w-lg">
               <p>
                 In 1998, Dr. Vikram Mehta opened the doors of a modest 50-bed
                 facility in New Delhi with a singular vision: to create a hospital
@@ -102,41 +107,41 @@ function MissionValues() {
   ];
 
   return (
-    <section className="bg-ivory-dark py-20 sm:py-28">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="bg-cream py-20 sm:py-28">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-14"
         >
-          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+          <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
             What Guides Us
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2">
             Our Values
           </h2>
         </motion.div>
 
-        <div className="space-y-0">
+        <div className="grid sm:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-8">
           {values.map((value, i) => (
             <motion.div
               key={value.num}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="grid grid-cols-[60px_1fr] sm:grid-cols-[80px_1fr] gap-4 sm:gap-8 py-8 sm:py-10 border-b border-border-custom items-start"
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="flex gap-5"
             >
-              <span className="font-display text-3xl sm:text-4xl text-sage/40">
+              <span className="font-display text-2xl sm:text-3xl text-sage/25 flex-shrink-0 mt-0.5">
                 {value.num}
               </span>
               <div>
-                <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-charcoal mb-3">
+                <h3 className="font-display text-lg sm:text-xl text-charcoal mb-2">
                   {value.title}
                 </h3>
-                <p className="font-body text-base text-charcoal-light leading-relaxed max-w-2xl">
+                <p className="font-body text-[13px] sm:text-sm text-charcoal-light leading-relaxed">
                   {value.desc}
                 </p>
               </div>
@@ -160,51 +165,41 @@ function Timeline() {
   ];
 
   return (
-    <section className="bg-cream py-20 sm:py-28">
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+    <section className="bg-ivory py-20 sm:py-28">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-14"
         >
-          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+          <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
             Our Journey
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2">
             A Growing Legacy
           </h2>
         </motion.div>
 
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-[1px] bg-border-custom" />
-
-          <div className="space-y-12">
-            {events.map((event, i) => (
-              <motion.div
-                key={event.year}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className={`relative pl-12 sm:pl-20 grid sm:grid-cols-2 gap-2 sm:gap-8 items-start ${
-                  i % 2 === 0 ? '' : ''
-                }`}
-              >
-                {/* Dot on line */}
-                <div className="absolute left-3 sm:left-7 top-1 w-3 h-3 rounded-full bg-sage border-2 border-cream" />
-
-                <div className="font-display text-2xl sm:text-3xl text-sage">
-                  {event.year}
-                </div>
-                <p className="font-body text-base text-charcoal-light leading-relaxed">
-                  {event.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {events.map((event, i) => (
+            <motion.div
+              key={event.year}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.06 }}
+              className="p-5 sm:p-6 border border-border-custom bg-cream"
+            >
+              <div className="font-display text-2xl sm:text-3xl text-sage mb-2">
+                {event.year}
+              </div>
+              <p className="font-body text-[13px] sm:text-sm text-charcoal-light leading-relaxed">
+                {event.desc}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
@@ -221,42 +216,41 @@ function Leadership() {
   ];
 
   return (
-    <section className="bg-ivory py-20 sm:py-28">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="bg-ivory-dark py-20 sm:py-28">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-14"
         >
-          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+          <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
             Our People
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2">
             Leadership
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
           {leaders.map((leader, i) => (
             <motion.div
               key={leader.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="text-center"
+              transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-sage-light mx-auto mb-4 flex items-center justify-center">
-                <span className="font-display text-2xl sm:text-3xl text-sage">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-sage-light flex items-center justify-center mb-4">
+                <span className="font-display text-lg sm:text-xl text-sage">
                   {leader.initials}
                 </span>
               </div>
-              <h3 className="font-display text-lg sm:text-xl text-charcoal mb-1">
+              <h3 className="font-display text-base sm:text-lg text-charcoal mb-0.5">
                 {leader.name}
               </h3>
-              <p className="font-body text-xs text-warm-gray tracking-wide">
+              <p className="font-body text-[11px] sm:text-xs text-warm-gray tracking-wide">
                 {leader.title}
               </p>
             </motion.div>
@@ -279,35 +273,35 @@ function Awards() {
   ];
 
   return (
-    <section className="bg-ivory-dark py-20 sm:py-28">
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+    <section className="bg-cream py-20 sm:py-28">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-14"
         >
-          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+          <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
             Recognition
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2">
             Awards & Accreditations
           </h2>
         </motion.div>
 
-        <div className="space-y-0">
+        <div className="grid sm:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-0">
           {awards.map((award, i) => (
             <motion.div
               key={award}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              className="flex items-start gap-4 py-4 border-b border-border-custom"
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              className="flex items-start gap-3 py-4 border-b border-border-custom"
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-terracotta flex-shrink-0 mt-2" />
-              <span className="font-body text-base text-charcoal-light">{award}</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-terracotta flex-shrink-0 mt-1.5" />
+              <span className="font-body text-[13px] sm:text-sm text-charcoal-light">{award}</span>
             </motion.div>
           ))}
         </div>
@@ -322,6 +316,7 @@ export default function AboutSection() {
     <>
       <PageHero
         title="About"
+        subtitle="A legacy of healing since 1998"
         breadcrumb={[
           { label: 'Home', href: '/' },
           { label: 'About' },

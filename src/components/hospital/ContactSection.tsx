@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, MapPin, Clock, Mail, Send } from 'lucide-react';
+import { Phone, MapPin, Clock, Mail, Send, ArrowRight } from 'lucide-react';
 import PageHero from '@/components/hospital/PageHero';
 
 export default function ContactSection() {
@@ -27,10 +27,13 @@ export default function ContactSection() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const inputClasses = 'w-full px-4 py-3 bg-cream border border-border-custom rounded-sm font-body text-[13px] text-charcoal placeholder:text-warm-gray/60 focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/20 transition-colors duration-300';
+
   return (
     <>
       <PageHero
         title="Contact"
+        subtitle="Book an appointment or reach out to us"
         breadcrumb={[
           { label: 'Home', href: '/' },
           { label: 'Contact' },
@@ -38,42 +41,39 @@ export default function ContactSection() {
       />
 
       <section className="bg-ivory py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20">
             {/* Left: Appointment Form */}
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
+              initial={{ opacity: 0, x: -25 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: 0.5 }}
             >
-              <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+              <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
                 Get in Touch
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl text-charcoal tracking-tight mt-3 mb-8">
+              <h2 className="font-display text-2xl sm:text-3xl text-charcoal tracking-tight mt-2 mb-8">
                 Book an Appointment
               </h2>
 
               {submitted ? (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="p-8 bg-sage-light rounded-sm text-center"
                 >
-                  <div className="font-display text-2xl text-sage mb-2">
+                  <div className="font-display text-xl text-sage mb-1.5">
                     Thank You
                   </div>
-                  <p className="font-body text-sm text-charcoal-light">
+                  <p className="font-body text-[13px] text-charcoal-light">
                     We&apos;ll reach out to you shortly to confirm your appointment.
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label
-                      htmlFor="name"
-                      className="font-body text-xs tracking-[0.15em] uppercase text-charcoal-light mb-2 block"
-                    >
+                    <label htmlFor="name" className="font-body text-[10px] tracking-[0.15em] uppercase text-warm-gray mb-1.5 block">
                       Full Name
                     </label>
                     <input
@@ -83,17 +83,14 @@ export default function ContactSection() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-cream border border-border-custom rounded-sm font-body text-sm text-charcoal placeholder:text-warm-gray focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30 transition-colors duration-300"
+                      className={inputClasses}
                       placeholder="Your full name"
                     />
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label
-                        htmlFor="email"
-                        className="font-body text-xs tracking-[0.15em] uppercase text-charcoal-light mb-2 block"
-                      >
+                      <label htmlFor="email" className="font-body text-[10px] tracking-[0.15em] uppercase text-warm-gray mb-1.5 block">
                         Email
                       </label>
                       <input
@@ -103,15 +100,12 @@ export default function ContactSection() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-cream border border-border-custom rounded-sm font-body text-sm text-charcoal placeholder:text-warm-gray focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30 transition-colors duration-300"
+                        className={inputClasses}
                         placeholder="your@email.com"
                       />
                     </div>
                     <div>
-                      <label
-                        htmlFor="phone"
-                        className="font-body text-xs tracking-[0.15em] uppercase text-charcoal-light mb-2 block"
-                      >
+                      <label htmlFor="phone" className="font-body text-[10px] tracking-[0.15em] uppercase text-warm-gray mb-1.5 block">
                         Phone
                       </label>
                       <input
@@ -120,17 +114,14 @@ export default function ContactSection() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-cream border border-border-custom rounded-sm font-body text-sm text-charcoal placeholder:text-warm-gray focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30 transition-colors duration-300"
+                        className={inputClasses}
                         placeholder="+91 98765 43210"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="department"
-                      className="font-body text-xs tracking-[0.15em] uppercase text-charcoal-light mb-2 block"
-                    >
+                    <label htmlFor="department" className="font-body text-[10px] tracking-[0.15em] uppercase text-warm-gray mb-1.5 block">
                       Department
                     </label>
                     <select
@@ -138,7 +129,7 @@ export default function ContactSection() {
                       name="department"
                       value={formData.department}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-cream border border-border-custom rounded-sm font-body text-sm text-charcoal focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30 transition-colors duration-300 appearance-none"
+                      className={`${inputClasses} appearance-none`}
                     >
                       <option value="">Select a department</option>
                       <option value="cardiac">Cardiac Sciences</option>
@@ -152,10 +143,7 @@ export default function ContactSection() {
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="message"
-                      className="font-body text-xs tracking-[0.15em] uppercase text-charcoal-light mb-2 block"
-                    >
+                    <label htmlFor="message" className="font-body text-[10px] tracking-[0.15em] uppercase text-warm-gray mb-1.5 block">
                       Message
                     </label>
                     <textarea
@@ -164,17 +152,17 @@ export default function ContactSection() {
                       rows={4}
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-cream border border-border-custom rounded-sm font-body text-sm text-charcoal placeholder:text-warm-gray focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30 transition-colors duration-300 resize-none"
+                      className={`${inputClasses} resize-none`}
                       placeholder="Tell us about your medical concern"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-sage text-white font-body text-sm font-medium rounded-full hover:bg-sage-dark transition-colors duration-300 group"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-charcoal text-ivory font-body text-[13px] rounded-full hover:bg-charcoal-light transition-colors duration-300 group"
                   >
                     Send Request
-                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                    <Send className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-300" />
                   </button>
                 </form>
               )}
@@ -182,55 +170,54 @@ export default function ContactSection() {
 
             {/* Right: Contact Info */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
+              initial={{ opacity: 0, x: 25 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <div className="space-y-10 lg:pl-8">
+              <div className="space-y-8 lg:pl-6 lg:border-l lg:border-border-custom">
                 {/* Emergency */}
                 <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <Phone className="w-5 h-5 text-terracotta" />
-                    <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <Phone className="w-4 h-4 text-terracotta" />
+                    <span className="font-body text-[10px] tracking-[0.25em] uppercase text-sage">
                       Emergency
                     </span>
                   </div>
                   <a
                     href="tel:+911123456789"
-                    className="font-display text-3xl sm:text-4xl text-charcoal hover:text-sage transition-colors duration-300"
+                    className="font-display text-2xl sm:text-3xl text-charcoal hover:text-sage transition-colors duration-300"
                   >
                     +91 11 2345 6789
                   </a>
-                  <p className="font-body text-sm text-warm-gray mt-1">
+                  <p className="font-body text-[12px] text-warm-gray mt-1">
                     Available 24 hours, 7 days a week
                   </p>
                 </div>
 
                 {/* Address */}
                 <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <MapPin className="w-5 h-5 text-sage" />
-                    <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <MapPin className="w-4 h-4 text-sage" />
+                    <span className="font-body text-[10px] tracking-[0.25em] uppercase text-sage">
                       Location
                     </span>
                   </div>
-                  <p className="font-body text-base text-charcoal-light leading-relaxed">
-                    42 Healing Avenue, Medical District
-                    <br />
+                  <p className="font-body text-[13px] text-charcoal-light leading-relaxed">
+                    42 Healing Avenue, Medical District<br />
                     New Delhi, India 110001
                   </p>
                 </div>
 
                 {/* Timings */}
                 <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <Clock className="w-5 h-5 text-sage" />
-                    <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <Clock className="w-4 h-4 text-sage" />
+                    <span className="font-body text-[10px] tracking-[0.25em] uppercase text-sage">
                       Timings
                     </span>
                   </div>
-                  <div className="space-y-2 font-body text-base text-charcoal-light">
+                  <div className="space-y-1 font-body text-[13px] text-charcoal-light">
                     <p>Outpatient: Mon–Sat, 9:00 AM – 7:00 PM</p>
                     <p>Emergency: 24/7</p>
                     <p>Pharmacy: 24/7</p>
@@ -239,25 +226,26 @@ export default function ContactSection() {
 
                 {/* Email */}
                 <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <Mail className="w-5 h-5 text-sage" />
-                    <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <Mail className="w-4 h-4 text-sage" />
+                    <span className="font-body text-[10px] tracking-[0.25em] uppercase text-sage">
                       Email
                     </span>
                   </div>
-                  <a
-                    href="mailto:info@medvista.com"
-                    className="font-body text-base text-charcoal-light hover:text-sage transition-colors duration-300"
-                  >
-                    info@medvista.com
-                  </a>
-                  <br />
-                  <a
-                    href="mailto:appointments@medvista.com"
-                    className="font-body text-base text-charcoal-light hover:text-sage transition-colors duration-300"
-                  >
-                    appointments@medvista.com
-                  </a>
+                  <div className="space-y-1">
+                    <a
+                      href="mailto:info@medvista.com"
+                      className="font-body text-[13px] text-charcoal-light hover:text-sage transition-colors duration-300 block"
+                    >
+                      info@medvista.com
+                    </a>
+                    <a
+                      href="mailto:appointments@medvista.com"
+                      className="font-body text-[13px] text-charcoal-light hover:text-sage transition-colors duration-300 block"
+                    >
+                      appointments@medvista.com
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -267,12 +255,12 @@ export default function ContactSection() {
 
       {/* Map Placeholder */}
       <section className="bg-ivory-dark">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-          <div className="w-full h-[300px] sm:h-[400px] bg-cream border border-border-custom rounded-sm flex items-center justify-center">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 py-10">
+          <div className="w-full h-[260px] sm:h-[340px] bg-cream border border-border-custom rounded-sm flex items-center justify-center">
             <div className="text-center">
-              <MapPin className="w-8 h-8 text-warm-gray mx-auto mb-3" />
-              <p className="font-display text-xl text-charcoal/40">42 Healing Avenue</p>
-              <p className="font-body text-sm text-warm-gray">New Delhi, India 110001</p>
+              <MapPin className="w-6 h-6 text-warm-gray/40 mx-auto mb-2" />
+              <p className="font-display text-lg text-charcoal/30">42 Healing Avenue</p>
+              <p className="font-body text-[12px] text-warm-gray/60">New Delhi, India 110001</p>
             </div>
           </div>
         </div>

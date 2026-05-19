@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useRef } from 'react';
 import PageHero from '@/components/hospital/PageHero';
 
 const facilities = [
@@ -19,7 +20,7 @@ const facilities = [
   },
   {
     title: 'Diagnostic & Imaging Centre',
-    desc: 'Home to the region\'s first 3-Tesla MRI, a 256-slice CT scanner, and advanced PET-CT capabilities. Our radiology department processes over 500 studies daily with AI-assisted reporting that reduces turnaround time by 60%.',
+    desc: "Home to the region's first 3-Tesla MRI, a 256-slice CT scanner, and advanced PET-CT capabilities. Our radiology department processes over 500 studies daily with AI-assisted reporting that reduces turnaround time by 60%.",
     image: '/images/hero-2.png',
   },
   {
@@ -44,6 +45,7 @@ export default function FacilitiesSection() {
     <>
       <PageHero
         title="Facilities"
+        subtitle="State-of-the-art infrastructure designed for healing"
         breadcrumb={[
           { label: 'Home', href: '/' },
           { label: 'Facilities' },
@@ -52,123 +54,140 @@ export default function FacilitiesSection() {
 
       {/* Facility Sections */}
       {facilities.map((facility, i) => (
-        <section
-          key={facility.title}
-          className={`${i % 2 === 0 ? 'bg-ivory' : 'bg-cream'} py-16 sm:py-24`}
-        >
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div
-              className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
-                i % 2 !== 0 ? 'lg:direction-rtl' : ''
-              }`}
-            >
-              {/* Image */}
-              <motion.div
-                initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-                className={i % 2 !== 0 ? 'lg:order-2' : ''}
-              >
-                <div className="relative h-[300px] sm:h-[400px] lg:h-[450px] overflow-hidden">
-                  <Image
-                    src={facility.image}
-                    alt={facility.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </div>
-              </motion.div>
-
-              {/* Text */}
-              <motion.div
-                initial={{ opacity: 0, x: i % 2 === 0 ? 40 : -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className={i % 2 !== 0 ? 'lg:order-1' : ''}
-              >
-                <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2 mb-6 leading-tight">
-                  {facility.title}
-                </h2>
-                <div className="h-[1.5px] w-16 bg-sage mb-6" />
-                <p className="font-body text-base md:text-lg text-charcoal-light leading-relaxed">
-                  {facility.desc}
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        <FacilityBlock key={facility.title} facility={facility} index={i} />
       ))}
 
       {/* International Patients */}
       <section className="bg-ivory-dark py-20 sm:py-28">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="mb-12"
-          >
-            <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
-              Global Care
-            </span>
-            <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3 mb-4">
-              International Patients
-            </h2>
-            <p className="font-body text-base md:text-lg text-charcoal-light leading-relaxed max-w-2xl">
-              Patients from over 30 countries trust MedVista for world-class
-              treatment. Our dedicated international patient programme ensures a
-              seamless experience from first contact to post-treatment follow-up.
-            </p>
-          </motion.div>
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
+                Global Care
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2 mb-4">
+                International Patients
+              </h2>
+              <p className="font-body text-[13px] sm:text-sm text-charcoal-light leading-relaxed max-w-md">
+                Patients from over 30 countries trust MedVista for world-class
+                treatment. Our dedicated international patient programme ensures a
+                seamless experience from first contact to post-treatment follow-up.
+              </p>
+            </motion.div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            {internationalServices.map((service, i) => (
-              <motion.div
-                key={service}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="flex items-start gap-3 py-3"
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-terracotta flex-shrink-0 mt-2" />
-                <span className="font-body text-sm text-charcoal-light">{service}</span>
-              </motion.div>
-            ))}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
+                {internationalServices.map((service, i) => (
+                  <div key={service} className="flex items-start gap-2.5 py-2.5">
+                    <div className="w-1 h-1 rounded-full bg-terracotta flex-shrink-0 mt-1.5" />
+                    <span className="font-body text-[13px] text-charcoal-light">{service}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Virtual Tour CTA */}
-      <section className="bg-charcoal py-16 sm:py-20">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+      <section className="bg-charcoal py-14 sm:py-18">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.5 }}
           >
-            <h2 className="font-display text-3xl sm:text-4xl text-white tracking-tight mb-4">
+            <h2 className="font-display text-2xl sm:text-3xl text-white tracking-tight mb-3">
               Experience MedVista Virtually
             </h2>
-            <p className="font-body text-base text-white/50 mb-8 max-w-lg mx-auto">
-              Take a guided virtual tour of our facilities from the comfort of
-              your home.
+            <p className="font-body text-[13px] text-white/40 mb-6 max-w-md mx-auto">
+              Take a guided virtual tour of our facilities from the comfort of your home.
             </p>
-            <button className="inline-flex items-center gap-2 px-8 py-4 bg-sage text-white font-body text-sm font-medium rounded-full hover:bg-sage-dark transition-colors duration-300 group">
+            <button className="inline-flex items-center gap-2 px-6 py-3 bg-sage text-white font-body text-[13px] font-medium rounded-full hover:bg-sage-dark transition-colors duration-300 group">
               Start Virtual Tour
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
             </button>
           </motion.div>
         </div>
       </section>
     </>
+  );
+}
+
+/* ── Individual facility block with parallax ── */
+function FacilityBlock({ facility, index }: { facility: typeof facilities[0]; index: number }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const isEven = index % 2 === 0;
+
+  return (
+    <section
+      ref={sectionRef}
+      className={`${isEven ? 'bg-ivory' : 'bg-cream'} py-16 sm:py-24`}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+        <div
+          className={`grid lg:grid-cols-2 gap-10 lg:gap-16 items-center ${
+            !isEven ? 'lg:direction-rtl' : ''
+          }`}
+        >
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0, x: isEven ? -25 : 25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className={!isEven ? 'lg:order-2' : ''}
+          >
+            <motion.div style={{ y: imageY }}>
+              <div className="relative h-[280px] sm:h-[360px] lg:h-[420px] overflow-hidden">
+                <Image
+                  src={facility.image}
+                  alt={facility.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Text */}
+          <motion.div
+            initial={{ opacity: 0, x: isEven ? 25 : -25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className={!isEven ? 'lg:order-1' : ''}
+          >
+            <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl text-charcoal tracking-tight mt-2 mb-4 leading-tight">
+              {facility.title}
+            </h2>
+            <div className="h-px w-10 bg-sage mb-4" />
+            <p className="font-body text-[13px] sm:text-sm text-charcoal-light leading-relaxed max-w-lg">
+              {facility.desc}
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
   );
 }
