@@ -4,7 +4,14 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { ArrowRight } from 'lucide-react';
+
+/* ── 3D Hero background - floating medical particles ── */
+const HeroParticles = dynamic(
+  () => import('@/components/hospital/3d/MedicalCross'),
+  { ssr: false, loading: () => null }
+);
 
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -37,8 +44,21 @@ export default function HeroSection() {
       {/* Dramatic gradient overlay */}
       <div className="absolute inset-0 hero-gradient" />
 
+      {/* 3D Floating medical particles - subtle overlay on right side */}
+      <div className="absolute right-0 top-0 w-1/2 h-full opacity-15 pointer-events-none hidden lg:block">
+        <HeroParticles />
+      </div>
+
       {/* Subtle grain texture */}
       <div className="absolute inset-0 opacity-[0.15]" style={{ background: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E") repeat', backgroundSize: '120px' }} />
+
+      {/* Animated accent line */}
+      <motion.div
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 1.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute left-6 sm:left-8 lg:left-12 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-sage/20 to-transparent origin-top hidden lg:block"
+      />
 
       {/* Content */}
       <motion.div style={{ opacity: fadeOut }} className="relative z-10 h-full flex flex-col justify-end">

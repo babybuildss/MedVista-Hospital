@@ -2,6 +2,13 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+/* ── Lightweight 3D background for page heroes ── */
+const ParticleWaveScene = dynamic(
+  () => import('@/components/hospital/3d/ParticleWave'),
+  { ssr: false, loading: () => null }
+);
 
 interface PageHeroProps {
   title: string;
@@ -12,6 +19,11 @@ interface PageHeroProps {
 export default function PageHero({ title, subtitle, breadcrumb }: PageHeroProps) {
   return (
     <section className="gradient-dark pt-28 sm:pt-32 pb-12 sm:pb-16 relative overflow-hidden">
+      {/* 3D Particle wave background */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <ParticleWaveScene />
+      </div>
+
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-sage/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 font-display text-[150px] sm:text-[200px] text-white/[0.02] leading-none select-none pointer-events-none">
@@ -30,18 +42,13 @@ export default function PageHero({ title, subtitle, breadcrumb }: PageHeroProps)
             {breadcrumb.map((crumb, i) => (
               <span key={i} className="flex items-center gap-2">
                 {crumb.href ? (
-                  <Link
-                    href={crumb.href}
-                    className="hover:text-sage-light transition-colors duration-300"
-                  >
+                  <Link href={crumb.href} className="hover:text-sage-light transition-colors duration-300">
                     {crumb.label}
                   </Link>
                 ) : (
                   <span className="text-white/70">{crumb.label}</span>
                 )}
-                {i < breadcrumb.length - 1 && (
-                  <span className="text-white/15">/</span>
-                )}
+                {i < breadcrumb.length - 1 && <span className="text-white/15">/</span>}
               </span>
             ))}
           </motion.nav>
