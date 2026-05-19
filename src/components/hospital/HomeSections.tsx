@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   Heart,
@@ -501,13 +502,10 @@ export default function HomeSections() {
                         </div>
                       ))}
                     </div>
-                    <button
-                      className="w-full mt-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-105"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const el = document.querySelector('#contact');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }}
+                    <Link
+                      href="/contact"
+                      className="block w-full mt-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-105 text-center"
+                      onClick={(e) => e.stopPropagation()}
                       style={{
                         background:
                           pkg.popular
@@ -520,7 +518,7 @@ export default function HomeSections() {
                       }}
                     >
                       Book Now
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </ScrollReveal>
@@ -634,16 +632,13 @@ export default function HomeSections() {
               healthcare that truly cares about you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => {
-                  const el = document.querySelector('#contact');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
+              <Link
+                href="/contact"
                 className="group flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-gold to-gold-light text-navy font-bold rounded-xl hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 hover:scale-105"
               >
                 Book Appointment
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
               <a
                 href="tel:+911800123456"
                 className="flex items-center justify-center gap-2 px-8 py-4 glass text-white font-semibold rounded-xl hover:bg-white/15 transition-all duration-300"

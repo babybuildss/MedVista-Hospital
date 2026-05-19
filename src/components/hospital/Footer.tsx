@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import {
   Heart,
   Phone,
@@ -14,32 +15,27 @@ import {
 } from 'lucide-react';
 
 const quickLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Departments', href: '#departments' },
-  { label: 'Facilities', href: '#facilities' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Departments', href: '/departments' },
+  { label: 'Facilities', href: '/facilities' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 const deptLinks = [
-  'Cardiology',
-  'Neurology',
-  'Orthopaedics',
-  'Oncology',
-  'Pediatrics',
-  'Emergency Care',
-  'Radiology',
-  'General Surgery',
+  { label: 'Cardiology', href: '/departments' },
+  { label: 'Neurology', href: '/departments' },
+  { label: 'Orthopaedics', href: '/departments' },
+  { label: 'Oncology', href: '/departments' },
+  { label: 'Pediatrics', href: '/departments' },
+  { label: 'Emergency Care', href: '/departments' },
+  { label: 'Radiology', href: '/departments' },
+  { label: 'General Surgery', href: '/departments' },
 ];
 
 const socialIcons = [Instagram, Twitter, Facebook, Linkedin];
 
 export default function Footer() {
-  const scrollTo = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <footer className="bg-navy-gradient relative overflow-hidden">
       {/* Decorative elements */}
@@ -86,13 +82,13 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-5">Quick Links</h4>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <button
-                    onClick={() => scrollTo(link.href)}
+                <li key={link.href + link.label}>
+                  <Link
+                    href={link.href}
                     className="text-white/50 text-sm hover:text-gold transition-colors duration-300"
                   >
                     {link.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -103,13 +99,13 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-5">Departments</h4>
             <ul className="space-y-2.5">
               {deptLinks.map((dept) => (
-                <li key={dept}>
-                  <button
-                    onClick={() => scrollTo('#departments')}
+                <li key={dept.label}>
+                  <Link
+                    href={dept.href}
                     className="text-white/50 text-sm hover:text-gold transition-colors duration-300"
                   >
-                    {dept}
-                  </button>
+                    {dept.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -152,13 +148,13 @@ export default function Footer() {
             </div>
 
             {/* Appointment CTA */}
-            <button
-              onClick={() => scrollTo('#contact')}
-              className="mt-5 flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-gold to-gold-light text-navy font-semibold text-sm rounded-xl hover:shadow-lg hover:shadow-gold/20 transition-all duration-300"
+            <Link
+              href="/contact"
+              className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-gold to-gold-light text-navy font-semibold text-sm rounded-xl hover:shadow-lg hover:shadow-gold/20 transition-all duration-300"
             >
               Book Appointment
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </Link>
           </div>
         </div>
 

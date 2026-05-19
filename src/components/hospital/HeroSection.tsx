@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ChevronDown, Calendar, ArrowRight } from 'lucide-react';
 import ParticleBackground from './ParticleBackground';
 
@@ -41,7 +42,7 @@ export default function HeroSection() {
   }, []);
 
   const scrollToNext = () => {
-    const el = document.querySelector('#about');
+    const el = document.querySelector('#home-content');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -129,26 +130,20 @@ export default function HeroSection() {
           transition={{ delay: 0.9, duration: 0.8 }}
           className="flex flex-col sm:flex-row gap-4"
         >
-          <button
-            onClick={() => {
-              const el = document.querySelector('#contact');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
+          <Link
+            href="/contact"
             className="group flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-gold to-gold-light text-navy font-bold rounded-xl hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 hover:scale-105"
           >
             <Calendar className="w-5 h-5" />
             Book Appointment
-          </button>
-          <button
-            onClick={() => {
-              const el = document.querySelector('#departments');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
+          </Link>
+          <Link
+            href="/departments"
             className="group flex items-center justify-center gap-2 px-8 py-4 glass text-white font-semibold rounded-xl hover:bg-white/15 transition-all duration-300"
           >
             Explore Excellence
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </Link>
         </motion.div>
 
         {/* Slide indicators */}
