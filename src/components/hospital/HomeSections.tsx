@@ -1,655 +1,511 @@
 'use client';
 
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
+import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import {
-  Heart,
-  Brain,
-  Bone,
-  Sparkles,
-  Baby,
-  Siren,
-  Star,
-  Shield,
-  CheckCircle,
-  ArrowRight,
-  Phone,
-  Clock,
-  UserCheck,
-  ClipboardCheck,
-  CreditCard,
-  Building,
-  ChevronRight,
-} from 'lucide-react';
-import ScrollReveal from './ScrollReveal';
-import AnimatedCounter from './AnimatedCounter';
+import Image from 'next/image';
+import { motion, useInView } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowRight, ArrowDownRight } from 'lucide-react';
 
-const DNAHelixScene = dynamic(() => import('./DNAHelix'), {
+gsap.registerPlugin(ScrollTrigger);
+
+const DNAHelixScene = dynamic(() => import('@/components/hospital/DNAHelix'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] flex items-center justify-center">
-      <div className="text-white/30 text-sm">Loading 3D Visualization...</div>
+      <div className="text-warm-gray text-sm font-body">Loading 3D...</div>
     </div>
   ),
 });
 
-const centres = [
-  {
-    icon: Heart,
-    title: 'Cardiac Sciences',
-    desc: 'Advanced cardiac surgery, interventional cardiology, and cardiac rehabilitation.',
-    color: 'from-red-500 to-rose-600',
-  },
-  {
-    icon: Brain,
-    title: 'Neuro Sciences',
-    desc: 'Comprehensive neurological care with cutting-edge neurosurgery and neurology.',
-    color: 'from-purple-500 to-violet-600',
-  },
-  {
-    icon: Bone,
-    title: 'Orthopaedics',
-    desc: 'Joint replacement, sports medicine, spine surgery, and trauma care.',
-    color: 'from-blue-500 to-medical-blue',
-  },
-  {
-    icon: Sparkles,
-    title: 'Oncology',
-    desc: 'Precision oncology with immunotherapy, radiation, and surgical oncology.',
-    color: 'from-teal to-teal-light',
-  },
-  {
-    icon: Baby,
-    title: 'Pediatrics',
-    desc: 'Specialized children\'s healthcare with NICU and pediatric surgery.',
-    color: 'from-amber-500 to-orange-500',
-  },
-  {
-    icon: Siren,
-    title: 'Emergency Care',
-    desc: '24/7 Level 1 trauma centre with rapid response teams and air ambulance.',
-    color: 'from-red-600 to-red-700',
-  },
-];
+/* ─── Counter Animation ─── */
+function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
 
-const doctors = [
-  {
-    name: 'Dr. Arun Mehta',
-    specialty: 'Cardiac Surgery',
-    image: '/images/doctor-1.png',
-    experience: '30+ Years',
-  },
-  {
-    name: 'Dr. Priya Sharma',
-    specialty: 'Neurology',
-    image: '/images/doctor-2.png',
-    experience: '25+ Years',
-  },
-  {
-    name: 'Dr. Rajesh Kumar',
-    specialty: 'Orthopaedics',
-    image: '/images/doctor-3.png',
-    experience: '20+ Years',
-  },
-  {
-    name: 'Dr. Anita Desai',
-    specialty: 'Oncology',
-    image: '/images/doctor-4.png',
-    experience: '22+ Years',
-  },
-];
-
-const testimonials = [
-  {
-    name: 'Rajiv Malhotra',
-    treatment: 'Cardiac Bypass Surgery',
-    text: 'The care I received was extraordinary. From the surgical team to the nursing staff, every moment was filled with professionalism and genuine compassion. I owe my life to MedVista.',
-    rating: 5,
-  },
-  {
-    name: 'Sunitha Reddy',
-    treatment: 'Neurosurgery',
-    text: 'When other hospitals said it was impossible, MedVista gave me hope. The neurosurgery team performed a miracle. I am forever grateful for their expertise and dedication.',
-    rating: 5,
-  },
-  {
-    name: 'Ahmed Khan',
-    treatment: 'Knee Replacement',
-    text: 'World-class facilities and a recovery experience that felt like staying at a premium hotel. The orthopaedic team was exceptional, and I was walking within days.',
-    rating: 5,
-  },
-];
-
-const healthPackages = [
-  {
-    name: 'Basic Health Check',
-    price: '₹3,999',
-    tests: '35+ Tests',
-    features: ['Complete Blood Count', 'Lipid Profile', 'Liver Function', 'Urine Analysis', 'ECG'],
-    popular: false,
-  },
-  {
-    name: 'Comprehensive Check',
-    price: '₹7,999',
-    tests: '60+ Tests',
-    features: ['All Basic Tests', 'Thyroid Profile', 'Vitamin D & B12', 'Chest X-Ray', 'Ultrasound Abdomen', 'Consultation'],
-    popular: true,
-  },
-  {
-    name: 'Cardiac Package',
-    price: '₹12,999',
-    tests: '40+ Cardiac Tests',
-    features: ['ECG', '2D Echo', 'Stress Test', 'Lipid Profile', 'Cardiac Markers', 'Cardiologist Review'],
-    popular: false,
-  },
-  {
-    name: 'Premium Wellness',
-    price: '₹19,999',
-    tests: '85+ Tests',
-    features: ['All Comprehensive Tests', 'MRI Brain', 'CT Coronary', 'Cancer Markers', 'Diet Consultation', 'Follow-up Visit'],
-    popular: false,
-  },
-];
-
-const appointmentSteps = [
-  {
-    icon: ClipboardCheck,
-    title: 'Book Online',
-    desc: 'Fill the appointment form or call our helpline',
-  },
-  {
-    icon: UserCheck,
-    title: 'Get Confirmation',
-    desc: 'Receive instant confirmation via SMS & email',
-  },
-  {
-    icon: Clock,
-    title: 'Visit Hospital',
-    desc: 'Meet your specialist with zero wait time',
-  },
-  {
-    icon: CheckCircle,
-    title: 'Follow-Up',
-    desc: 'Free follow-up consultation within 7 days',
-  },
-];
-
-const insurancePartners = [
-  'Star Health',
-  'ICICI Lombard',
-  'HDFC ERGO',
-  'Bajaj Allianz',
-  'New India Assurance',
-  'Max Bupa',
-  'Religare',
-  'United Health',
-];
-
-export default function HomeSections() {
-  const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const end = target;
+    const duration = 2000;
+    const increment = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [isInView, target]);
 
   return (
-    <section id="home-content">
-      {/* Centres of Excellence */}
-      <div className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Excellence Redefined
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-                Centres of Excellence
-              </h2>
-              <div className="section-divider mx-auto mb-6" />
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Each centre is a world-class facility, staffed by internationally
-                recognized specialists and equipped with the latest medical technology.
-              </p>
-            </div>
-          </ScrollReveal>
+    <span ref={ref}>
+      {count}{suffix}
+    </span>
+  );
+}
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {centres.map((centre, i) => (
-              <ScrollReveal key={centre.title} delay={i * 0.1}>
-                <div className="group relative p-6 bg-white rounded-2xl border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 card-hover overflow-hidden">
-                  {/* Gradient overlay on hover */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${centre.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`}
-                  />
-                  <div className="relative z-10">
-                    <div
-                      className={`w-14 h-14 rounded-xl bg-gradient-to-br ${centre.color} flex items-center justify-center mb-5 group-hover:bg-white/20 transition-all duration-300`}
-                    >
-                      <centre.icon className="w-7 h-7 text-white" />
-                    </div>
-                    <h3 className="text-lg font-bold text-navy group-hover:text-white mb-2 transition-colors">
-                      {centre.title}
-                    </h3>
-                    <p className="text-gray-500 group-hover:text-white/80 text-sm leading-relaxed transition-colors">
-                      {centre.desc}
-                    </p>
-                    <div className="mt-4 flex items-center gap-1 text-gold group-hover:text-gold-light text-sm font-semibold transition-colors">
-                      Learn More
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
+/* ─── Philosophy Section ─── */
+function PhilosophySection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const words = section.querySelectorAll('.philosophy-word');
+    words.forEach((word, i) => {
+      gsap.fromTo(
+        word,
+        { opacity: 0.15 },
+        {
+          opacity: 1,
+          duration: 0.5,
+          scrollTrigger: {
+            trigger: word,
+            start: 'top 80%',
+            end: 'top 50%',
+            scrub: true,
+          },
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
+
+  const line1 = ['Medicine', 'is', 'not', 'just', 'science.'];
+  const line2 = ["It's", 'the', 'art', 'of'];
+  const line3 = ['understanding', 'a', 'human', 'story.'];
+
+  const allWords = [...line1, ...line2, ...line3];
+
+  return (
+    <section ref={sectionRef} className="bg-ivory py-24 sm:py-32 md:py-40">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+        <div className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-charcoal leading-snug">
+          <div className="mb-2">
+            {line1.map((word, i) => (
+              <span key={`l1-${i}`} className="philosophy-word inline-block mr-[0.3em]">
+                {word}
+              </span>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Expert Doctors */}
-      <div className="bg-premium-gray py-12 sm:py-16 lg:py-20 xl:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Our Specialists
+          <div className="mb-2">
+            {line2.map((word, i) => (
+              <span key={`l2-${i}`} className="philosophy-word inline-block mr-[0.3em]">
+                {word}
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-                Expert Doctors
-              </h2>
-              <div className="section-divider mx-auto mb-6" />
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Internationally trained specialists with decades of experience
-                delivering exceptional outcomes.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {doctors.map((doc, i) => (
-              <ScrollReveal key={doc.name} delay={i * 0.1}>
-                <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover">
-                  <div className="relative h-56 sm:h-64 lg:h-72 overflow-hidden">
-                    <Image
-                      src={doc.image}
-                      alt={doc.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                      <p className="text-gold text-sm font-medium">{doc.experience}</p>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h4 className="text-navy font-bold text-lg">{doc.name}</h4>
-                    <p className="text-medical-blue text-sm font-medium">{doc.specialty}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Emergency Section */}
-      <div className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 py-16 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-white rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-white rounded-full blur-3xl" />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <ScrollReveal direction="left">
-              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center animate-emergency">
-                  <Siren className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white">
-                    Emergency & Critical Care
-                  </h3>
-                  <p className="text-white/70 mt-1">
-                    24/7 Level 1 Trauma Centre — Response time under 5 minutes
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal direction="right">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="tel:+911800123456"
-                  className="flex items-center gap-3 px-8 py-4 bg-white text-red-700 font-bold rounded-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-                >
-                  <Phone className="w-5 h-5" />
-                  1800-123-456
-                </a>
-                <a
-                  href="tel:+911123456789"
-                  className="flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300"
-                >
-                  <Phone className="w-5 h-5" />
-                  +91-11-2345-6789
-                </a>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </div>
-
-      {/* Advanced Technology - 3D Section */}
-      <div className="bg-navy-gradient py-12 sm:py-16 lg:py-20 xl:py-28 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <ScrollReveal direction="left">
-              <div>
-                <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                  Technology
-                </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-6 leading-tight">
-                  Advanced Medical{' '}
-                  <span className="text-gradient-gold">Technology</span>
-                </h2>
-                <div className="section-divider mb-6" />
-                <p className="text-white/60 leading-relaxed mb-6">
-                  We leverage the latest advances in medical science and technology
-                  to deliver precise diagnostics and effective treatments. From
-                  AI-powered imaging to robotic surgery, our technology stack is
-                  second to none.
-                </p>
-                <div className="space-y-4">
-                  {[
-                    'Da Vinci Robotic Surgery System',
-                    '3T MRI & 128-Slice CT Scanner',
-                    'AI-Powered Diagnostic Imaging',
-                    'CyberKnife Radiosurgery',
-                    'PET-CT Molecular Imaging',
-                  ].map((item, i) => (
-                    <motion.div
-                      key={item}
-                      className="flex items-center gap-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      viewport={{ once: true }}
-                    >
-                      <CheckCircle className="w-5 h-5 text-teal flex-shrink-0" />
-                      <span className="text-white/80 text-sm">{item}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal direction="right">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-medical-blue/20 to-teal/20 rounded-2xl blur-xl" />
-                <div className="relative glass-dark rounded-2xl p-4 overflow-hidden">
-                  <DNAHelixScene />
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </div>
-
-      {/* Patient Success Stories */}
-      <div className="bg-premium-light py-12 sm:py-16 lg:py-20 xl:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Testimonials
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-                Patient Success Stories
-              </h2>
-              <div className="section-divider mx-auto mb-6" />
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Real stories from real patients who experienced the MedVista
-                difference.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <ScrollReveal key={t.name} delay={i * 0.15}>
-                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-50 hover:shadow-xl transition-all duration-300 card-hover relative">
-                  <div className="absolute top-6 right-6 text-6xl text-navy/5 font-serif">
-                    &ldquo;
-                  </div>
-                  <div className="flex gap-1 mb-4">
-                    {Array.from({ length: t.rating }).map((_, j) => (
-                      <Star
-                        key={j}
-                        className="w-4 h-4 text-gold fill-gold"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 leading-relaxed mb-6 relative z-10">
-                    {t.text}
-                  </p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-navy to-navy-light flex items-center justify-center">
-                      <span className="text-sm font-bold text-gold">
-                        {t.name.charAt(0)}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-navy font-semibold text-sm">{t.name}</p>
-                      <p className="text-gray-400 text-xs">{t.treatment}</p>
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Health Packages */}
-      <div className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Preventive Care
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-                Health Checkup Packages
-              </h2>
-              <div className="section-divider mx-auto mb-6" />
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Invest in your health with our comprehensive screening packages
-                designed for early detection and peace of mind.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-            {healthPackages.map((pkg, i) => (
-              <ScrollReveal key={pkg.name} delay={i * 0.1}>
-                <div
-                  className={`relative bg-white rounded-2xl border-2 transition-all duration-300 card-hover cursor-pointer ${
-                    selectedPackage === i
-                      ? 'border-gold shadow-xl shadow-gold/10'
-                      : pkg.popular
-                      ? 'border-gold/40 shadow-lg'
-                      : 'border-gray-100 hover:border-gold/20 hover:shadow-lg'
-                  }`}
-                  onClick={() =>
-                    setSelectedPackage(selectedPackage === i ? null : i)
-                  }
-                >
-                  {pkg.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-gold to-gold-light text-navy text-xs font-bold rounded-full">
-                      Most Popular
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <h4 className="text-navy font-bold text-lg">{pkg.name}</h4>
-                    <p className="text-gray-400 text-xs mt-1">{pkg.tests}</p>
-                    <div className="mt-4 mb-4">
-                      <span className="text-3xl font-bold text-navy">
-                        {pkg.price}
-                      </span>
-                    </div>
-                    <div className="space-y-2">
-                      {pkg.features.map((f) => (
-                        <div key={f} className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-teal flex-shrink-0" />
-                          <span className="text-gray-600 text-sm">{f}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <Link
-                      href="/contact"
-                      className="block w-full mt-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-105 text-center"
-                      onClick={(e) => e.stopPropagation()}
-                      style={{
-                        background:
-                          pkg.popular
-                            ? 'linear-gradient(135deg, #d4a853, #e8c87a)'
-                            : 'transparent',
-                        color: pkg.popular ? '#0a1628' : '#1e40af',
-                        border: pkg.popular
-                          ? 'none'
-                          : '2px solid #1e40af',
-                      }}
-                    >
-                      Book Now
-                    </Link>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Appointment Process */}
-      <div className="bg-premium-gray py-12 sm:py-16 lg:py-20 xl:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Simple Steps
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-                How to Get Started
-              </h2>
-              <div className="section-divider mx-auto mb-6" />
-            </div>
-          </ScrollReveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-            {/* Connecting line */}
-            <div className="hidden lg:block absolute top-16 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-gold/30 via-medical-blue/30 to-teal/30" />
-
-            {appointmentSteps.map((step, i) => (
-              <ScrollReveal key={step.title} delay={i * 0.15}>
-                <div className="text-center relative">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-navy to-navy-light flex items-center justify-center mb-5 relative z-10 shadow-lg">
-                    <step.icon className="w-7 h-7 text-gold" />
-                  </div>
-                  <span className="text-gold font-bold text-sm">
-                    Step {i + 1}
-                  </span>
-                  <h4 className="text-navy font-bold text-lg mt-1">
-                    {step.title}
-                  </h4>
-                  <p className="text-gray-500 text-sm mt-2">{step.desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Insurance & Support */}
-      <div className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Insurance Partners
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-                Insurance & Support
-              </h2>
-              <div className="section-divider mx-auto mb-6" />
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                We partner with all major insurance providers to ensure
-                hassle-free cashless treatment.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {insurancePartners.map((partner, i) => (
-              <ScrollReveal key={partner} delay={i * 0.05}>
-                <div className="flex items-center justify-center gap-2 p-5 bg-gray-50 rounded-xl border border-gray-100 hover:border-gold/30 hover:shadow-md transition-all duration-300 group">
-                  <Building className="w-5 h-5 text-gray-400 group-hover:text-gold transition-colors" />
-                  <span className="text-gray-600 font-medium text-sm group-hover:text-navy transition-colors">
-                    {partner}
-                  </span>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <div className="flex items-center gap-2 text-gray-500">
-              <CreditCard className="w-5 h-5 text-teal" />
-              <span className="text-sm">Cashless Treatment Available</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-500">
-              <Shield className="w-5 h-5 text-teal" />
-              <span className="text-sm">TPA Support 24/7</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="relative py-16 sm:py-20 lg:py-24 xl:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-light to-navy" />
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-medical-blue/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-gold/10 rounded-full blur-3xl" />
-        </div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <ScrollReveal>
-            <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-              Take the First Step
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mt-4 mb-6 leading-tight">
-              Your Journey to Better Health{' '}
-              <span className="text-gradient-gold">Starts Here</span>
-            </h2>
-            <p className="text-white/60 max-w-xl mx-auto mb-10 text-lg">
-              Schedule a consultation with our specialists today and experience
-              healthcare that truly cares about you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="group flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-gold to-gold-light text-navy font-bold rounded-xl hover:shadow-2xl hover:shadow-gold/30 transition-all duration-300 hover:scale-105"
+          <div>
+            {line3.map((word, i) => (
+              <span
+                key={`l3-${i}`}
+                className={`philosophy-word inline-block mr-[0.3em] ${
+                  i === 2 || i === 3 ? 'italic text-sage' : ''
+                }`}
               >
-                Book Appointment
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <a
-                href="tel:+911800123456"
-                className="flex items-center justify-center gap-2 px-8 py-4 glass text-white font-semibold rounded-xl hover:bg-white/15 transition-all duration-300"
-              >
-                <Phone className="w-5 h-5" />
-                Call: 1800-123-456
-              </a>
-            </div>
-          </ScrollReveal>
+                {word}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/* ─── Centres of Excellence ─── */
+function CentresOfExcellence() {
+  const centres = [
+    {
+      name: 'Cardiac Sciences',
+      desc: 'Pioneering minimally invasive cardiac procedures with outcomes that set global benchmarks.',
+      image: '/images/doctor-1.png',
+    },
+    {
+      name: 'Neuro Sciences',
+      desc: 'Advanced neurosurgery and neuro-rehabilitation guided by precision imaging technology.',
+      image: '/images/doctor-2.png',
+    },
+    {
+      name: 'Oncology',
+      desc: 'Comprehensive cancer care from early detection to personalized immunotherapy protocols.',
+      image: '/images/doctor-3.png',
+    },
+  ];
+
+  return (
+    <section className="bg-ivory-dark py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+            Centres of Excellence
+          </span>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-charcoal tracking-tight mt-3">
+            Where Expertise<br />Meets Empathy
+          </h2>
+        </motion.div>
+      </div>
+
+      {/* Horizontal scroll on desktop, vertical on mobile */}
+      <div className="md:horizontal-scroll flex flex-col md:flex-row gap-6 md:gap-8 px-6 lg:px-8 pb-4">
+        {centres.map((centre, i) => (
+          <motion.div
+            key={centre.name}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: i * 0.15 }}
+            className="group flex-shrink-0 w-full md:w-[420px] lg:w-[480px]"
+          >
+            <div className="relative h-[300px] sm:h-[360px] overflow-hidden rounded-sm mb-5">
+              <Image
+                src={centre.image}
+                alt={centre.name}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 480px"
+              />
+            </div>
+            <h3 className="font-display text-2xl sm:text-3xl text-charcoal mb-2 group-hover:text-sage transition-colors duration-300">
+              {centre.name}
+            </h3>
+            <p className="font-body text-base text-charcoal-light leading-relaxed">
+              {centre.desc}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─── Stats Section ─── */
+function StatsSection() {
+  const stats = [
+    { value: 500, suffix: '+', label: 'Hospital Beds' },
+    { value: 200, suffix: '+', label: 'Expert Physicians' },
+    { value: 50, suffix: '+', label: 'Specialities' },
+    { value: 25, suffix: '+', label: 'Years of Excellence' },
+  ];
+
+  return (
+    <section className="bg-charcoal py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="text-center"
+            >
+              <div className="font-display text-5xl sm:text-6xl md:text-7xl text-white mb-2">
+                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+              </div>
+              <div className="font-body text-xs tracking-[0.2em] uppercase text-white/40">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Technology + 3D Section ─── */
+function TechnologySection() {
+  return (
+    <section className="bg-cream py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+              Precision Medicine
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3 mb-6 leading-tight">
+              At the Forefront of{' '}
+              <span className="italic text-sage">Genomic Research</span>
+            </h2>
+            <div className="h-[1.5px] w-16 bg-sage mb-6" />
+            <p className="font-body text-base md:text-lg text-charcoal-light leading-relaxed mb-8">
+              Our genomics lab is equipped with next-generation sequencing platforms
+              that enable precision diagnostics and personalized treatment plans
+              based on your unique genetic profile.
+            </p>
+            <div className="space-y-4">
+              {[
+                'Whole Genome Sequencing',
+                'Pharmacogenomics',
+                'Liquid Biopsy for Cancer',
+                'Genetic Counseling',
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-sage flex-shrink-0" />
+                  <span className="font-body text-sm text-charcoal-light">{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <DNAHelixScene />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Patient Stories ─── */
+function PatientStories() {
+  const stories = [
+    {
+      quote:
+        'The cardiac team at MedVista didn\'t just repair my heart — they gave me my life back. The care was extraordinary, personal, and deeply human.',
+      name: 'Ananya Sharma',
+      detail: 'Cardiac Surgery Patient, 2024',
+    },
+    {
+      quote:
+        'From diagnosis to recovery, every moment was handled with such precision and warmth. I never felt like just another patient — I felt heard.',
+      name: 'Rajesh Kapoor',
+      detail: 'Neuro Rehabilitation Patient, 2023',
+    },
+  ];
+
+  return (
+    <section className="bg-ivory py-20 sm:py-28">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-16"
+        >
+          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+            Patient Stories
+          </span>
+          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+            Voices of Trust
+          </h2>
+        </motion.div>
+
+        <div className="space-y-16 sm:space-y-24">
+          {stories.map((story, i) => (
+            <motion.blockquote
+              key={story.name}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.1 }}
+              className="relative"
+            >
+              <span className="font-display text-8xl sm:text-9xl text-sage/15 absolute -top-8 -left-2 leading-none select-none">
+                &ldquo;
+              </span>
+              <p className="font-display text-xl sm:text-2xl md:text-3xl text-charcoal leading-relaxed pl-8 sm:pl-12">
+                {story.quote}
+              </p>
+              <footer className="mt-6 pl-8 sm:pl-12">
+                <div className="font-body text-sm font-medium text-charcoal">
+                  {story.name}
+                </div>
+                <div className="font-body text-xs text-warm-gray mt-0.5">
+                  {story.detail}
+                </div>
+              </footer>
+            </motion.blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── CTA Section ─── */
+function CTASection() {
+  return (
+    <section className="bg-terracotta py-20 sm:py-28">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-white tracking-tight mb-6">
+            Begin Your Journey
+          </h2>
+          <p className="font-body text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8">
+            Take the first step toward world-class healthcare. Our team is ready
+            to guide you every step of the way.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-terracotta font-body text-sm font-medium rounded-full hover:bg-ivory transition-colors duration-300 group"
+          >
+            Book an Appointment
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── About Teaser ─── */
+function AboutTeaser() {
+  return (
+    <section className="bg-cream py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative"
+          >
+            <div className="relative h-[350px] sm:h-[450px] lg:h-[500px] overflow-hidden">
+              <Image
+                src="/images/about-hospital.png"
+                alt="About MedVista"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+              Our Story
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3 mb-6 leading-tight">
+              A Legacy of Healing,<br />
+              <span className="italic text-sage">A Future of Hope</span>
+            </h2>
+            <div className="h-[1.5px] w-16 bg-sage mb-6" />
+            <p className="font-body text-base md:text-lg text-charcoal-light leading-relaxed mb-6">
+              Founded in 1998, MedVista Premier has grown from a modest 50-bed
+              facility to a 500+ bed multi-speciality hospital recognized globally
+              for clinical excellence. Our commitment to integrating advanced
+              technology with compassionate care has earned the trust of over
+              2 million patients.
+            </p>
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 font-body text-sm text-sage hover:text-sage-dark transition-colors duration-300 group"
+            >
+              Read our story
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Departments Teaser ─── */
+function DepartmentsTeaser() {
+  const departments = [
+    'Cardiology',
+    'Neurology',
+    'Orthopaedics',
+    'Oncology',
+    'Pediatrics',
+  ];
+
+  return (
+    <section className="bg-ivory py-20 sm:py-28">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-12"
+        >
+          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+            Specialized Care
+          </span>
+          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+            Our Departments
+          </h2>
+        </motion.div>
+
+        <div className="space-y-0">
+          {departments.map((dept, i) => (
+            <motion.div
+              key={dept}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+            >
+              <Link
+                href="/departments"
+                className="group flex items-center justify-between py-5 border-b border-border-custom hover:border-sage transition-colors duration-300"
+              >
+                <span className="font-display text-2xl sm:text-3xl text-charcoal group-hover:text-sage transition-colors duration-300">
+                  {dept}
+                </span>
+                <ArrowDownRight className="w-5 h-5 text-warm-gray group-hover:text-sage group-hover:rotate-0 -rotate-45 transition-all duration-300" />
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Main Export ─── */
+export default function HomeSections() {
+  return (
+    <>
+      <PhilosophySection />
+      <CentresOfExcellence />
+      <StatsSection />
+      <TechnologySection />
+      <PatientStories />
+      <CTASection />
+      <AboutTeaser />
+      <DepartmentsTeaser />
+    </>
   );
 }

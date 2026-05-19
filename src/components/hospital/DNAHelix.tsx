@@ -21,8 +21,8 @@ function DNAHelix() {
       positions.push({
         pos: new THREE.Vector3(x, y, z),
         color: isStrand1
-          ? new THREE.Color('#3b82f6')
-          : new THREE.Color('#0d9488'),
+          ? new THREE.Color('#7A8B6F')
+          : new THREE.Color('#C17B5A'),
       });
     }
     return positions;
@@ -82,8 +82,8 @@ function DNAHelix() {
           >
             <cylinderGeometry args={[0.015, 0.015, length, 4]} />
             <meshStandardMaterial
-              color="#d4a853"
-              emissive="#d4a853"
+              color="#9B958C"
+              emissive="#9B958C"
               emissiveIntensity={0.3}
               transparent
               opacity={0.6}
@@ -92,8 +92,8 @@ function DNAHelix() {
         );
       })}
       <ambientLight intensity={0.4} />
-      <pointLight position={[5, 5, 5]} intensity={0.8} color="#3b82f6" />
-      <pointLight position={[-5, -5, -5]} intensity={0.5} color="#0d9488" />
+      <pointLight position={[5, 5, 5]} intensity={0.8} color="#7A8B6F" />
+      <pointLight position={[-5, -5, -5]} intensity={0.5} color="#C17B5A" />
     </group>
   );
 }
@@ -136,8 +136,8 @@ function FloatingParticles() {
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
       <sphereGeometry args={[1, 6, 6]} />
       <meshStandardMaterial
-        color="#d4a853"
-        emissive="#d4a853"
+        color="#9B958C"
+        emissive="#9B958C"
         emissiveIntensity={0.6}
         transparent
         opacity={0.4}

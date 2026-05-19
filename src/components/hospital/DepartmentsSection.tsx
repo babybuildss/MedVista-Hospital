@@ -1,213 +1,175 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Heart,
-  Brain,
-  Bone,
-  Sparkles,
-  Baby,
-  Siren,
-  Scan,
-  Activity,
-  Scissors,
-  Shield,
-  Search,
-  ChevronRight,
-} from 'lucide-react';
-import ScrollReveal from './ScrollReveal';
+import { Plus, Minus, ArrowRight } from 'lucide-react';
+import PageHero from '@/components/hospital/PageHero';
 
 const departments = [
   {
-    icon: Heart,
-    name: 'Cardiology',
-    desc: 'Comprehensive cardiac care including interventional procedures, bypass surgery, and cardiac rehabilitation with a 99.2% success rate.',
-    color: 'from-red-500 to-rose-600',
-    doctors: 28,
+    name: 'Cardiac Sciences',
+    desc: 'Our Cardiac Sciences centre is equipped with state-of-the-art catheterization labs, hybrid operating rooms, and a dedicated cardiac ICU. We perform over 3,000 cardiac procedures annually with outcomes that rival the best institutions globally.',
   },
   {
-    icon: Brain,
-    name: 'Neurology',
-    desc: 'Advanced neurological treatments for stroke, epilepsy, and neurodegenerative diseases with cutting-edge neurosurgery capabilities.',
-    color: 'from-purple-500 to-violet-600',
-    doctors: 22,
+    name: 'Neuro Sciences',
+    desc: 'From complex brain tumor resections to advanced neuro-rehabilitation, our Neuro Sciences centre integrates precision imaging, intra-operative monitoring, and robotic-assisted surgery for unparalleled neurological care.',
   },
   {
-    icon: Bone,
-    name: 'Orthopaedics',
-    desc: 'Expert joint replacement, sports medicine, and spine surgery with robotic-assisted precision and rapid recovery protocols.',
-    color: 'from-blue-500 to-medical-blue',
-    doctors: 20,
+    name: 'Orthopaedics & Joint Replacement',
+    desc: 'Specializing in minimally invasive joint replacements, sports medicine, and spinal surgery. Our robotic-assisted surgery platform enables precision that reduces recovery time by up to 40%.',
   },
   {
-    icon: Sparkles,
-    name: 'Oncology',
-    desc: 'Precision oncology with personalized treatment plans, immunotherapy, radiation therapy, and minimally invasive surgical oncology.',
-    color: 'from-teal to-teal-light',
-    doctors: 25,
+    name: 'Oncology & Hematology',
+    desc: 'Comprehensive cancer care from screening and early detection to personalized immunotherapy. Our tumour board brings together experts across disciplines to design treatment plans unique to each patient.',
   },
   {
-    icon: Baby,
-    name: 'Pediatrics',
-    desc: 'Specialized children\'s healthcare with Level 3 NICU, pediatric surgery, and comprehensive developmental care programs.',
-    color: 'from-amber-500 to-orange-500',
-    doctors: 18,
+    name: 'Pediatrics & Neonatology',
+    desc: 'A child-friendly environment with a Level III NICU, pediatric ICU, and specialized surgical suites. Our team handles the most complex pediatric and neonatal cases with sensitivity and expertise.',
   },
   {
-    icon: Siren,
-    name: 'Emergency Care',
-    desc: '24/7 Level 1 Trauma Centre with helicopter ambulance service, rapid response teams, and state-of-the-art emergency protocols.',
-    color: 'from-red-600 to-red-700',
-    doctors: 15,
+    name: 'Gastroenterology',
+    desc: 'Advanced endoscopic procedures, liver transplantation, and management of complex GI disorders. Our centre is recognized for pioneering NOTES procedures in India.',
   },
   {
-    icon: Scan,
-    name: 'Radiology',
-    desc: 'Advanced diagnostic imaging including 3T MRI, 128-slice CT, PET-CT, and AI-powered image analysis for accurate diagnosis.',
-    color: 'from-cyan-500 to-blue-600',
-    doctors: 12,
+    name: 'Pulmonology',
+    desc: 'Specialized care for respiratory conditions including interstitial lung disease, sleep disorders, and critical care ventilation. Our bronchoscopy suite offers both diagnostic and therapeutic interventions.',
   },
   {
-    icon: Activity,
-    name: 'ICU & Critical Care',
-    desc: 'State-of-the-art intensive care with 24/7 monitoring, ECMO support, and specialized critical care teams for complex cases.',
-    color: 'from-emerald-500 to-green-600',
-    doctors: 16,
+    name: 'Nephrology & Urology',
+    desc: 'From dialysis to kidney transplantation, our renal care programme is one of the most experienced in the region. Minimally invasive urological procedures ensure faster recovery.',
   },
   {
-    icon: Scissors,
-    name: 'General Surgery',
-    desc: 'Minimally invasive and robotic-assisted surgical procedures across all specialties with the Da Vinci surgical system.',
-    color: 'from-slate-500 to-gray-600',
-    doctors: 24,
+    name: 'Obstetrics & Gynaecology',
+    desc: 'Comprehensive women\'s health services including high-risk obstetrics, laparoscopic gynaecological surgery, and fertility treatment in a warm, supportive environment.',
   },
   {
-    icon: Shield,
-    name: 'Preventive Healthcare',
-    desc: 'Comprehensive health screening programs, wellness consultations, and lifestyle management to prevent disease before it starts.',
-    color: 'from-gold to-gold-light',
-    doctors: 10,
+    name: 'Emergency & Trauma',
+    desc: 'A 24/7 Level 1 trauma centre with a dedicated emergency team, rapid diagnostics, and seamless coordination with surgical specialties. Every minute counts, and we make each one matter.',
   },
 ];
 
 export default function DepartmentsSection() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const filtered = departments.filter(
-    (d) =>
-      d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      d.desc.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const toggle = (i: number) => {
+    setOpenIndex(openIndex === i ? null : i);
+  };
 
   return (
-    <section id="departments" className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
-          <div className="text-center mb-12">
-            <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-              Specialized Care
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-              Our Departments
-            </h2>
-            <div className="section-divider mx-auto mb-6" />
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              With 50+ specialities under one roof, our departments are
-              designed to provide comprehensive, integrated care for every
-              medical need.
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageHero
+        title="Departments"
+        breadcrumb={[
+          { label: 'Home', href: '/' },
+          { label: 'Departments' },
+        ]}
+      />
 
-        {/* Search */}
-        <ScrollReveal delay={0.2}>
-          <div className="max-w-md mx-auto mb-12 relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search departments..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-navy placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gold/30 focus:border-gold/50 transition-all"
-            />
-          </div>
-        </ScrollReveal>
+      {/* Search */}
+      <section className="bg-ivory pb-8">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <input
+            type="text"
+            placeholder="Search departments..."
+            className="w-full sm:w-80 px-5 py-3 bg-cream border border-border-custom rounded-full font-body text-sm text-charcoal placeholder:text-warm-gray focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage/30 transition-colors duration-300"
+            onChange={(e) => {
+              // Simple filter by name
+              const value = e.target.value.toLowerCase();
+              const items = document.querySelectorAll('[data-dept-name]');
+              items.forEach((item) => {
+                const name = item.getAttribute('data-dept-name')?.toLowerCase() || '';
+                const el = item as HTMLElement;
+                el.style.display = name.includes(value) ? '' : 'none';
+              });
+            }}
+          />
+        </div>
+      </section>
 
-        {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((dept, i) => (
+      {/* Department List */}
+      <section className="bg-ivory py-8 sm:py-12">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="space-y-0">
+            {departments.map((dept, i) => (
               <motion.div
                 key={dept.name}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-                onMouseEnter={() => setHoveredIndex(i)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                data-dept-name={dept.name}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.04 }}
+                className="border-b border-border-custom"
               >
-                <div className="group relative h-full p-5 bg-white rounded-2xl border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden">
-                  {/* Glow effect */}
-                  <div
-                    className={`absolute -inset-1 bg-gradient-to-br ${dept.color} rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}
-                  />
-
-                  <div className="relative z-10">
-                    <div
-                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <dept.icon className="w-6 h-6 text-white" />
-                    </div>
-
-                    <h3 className="text-navy font-bold text-base mb-2">
+                <button
+                  onClick={() => toggle(i)}
+                  className="w-full flex items-center justify-between py-5 sm:py-6 text-left group"
+                >
+                  <div className="flex items-center gap-4 sm:gap-6">
+                    <span className="font-body text-xs tracking-[0.15em] text-warm-gray tabular-nums min-w-[28px]">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="font-display text-xl sm:text-2xl md:text-3xl text-charcoal group-hover:text-sage transition-colors duration-300">
                       {dept.name}
-                    </h3>
+                    </span>
+                  </div>
+                  <span className="flex-shrink-0 text-sage">
+                    {openIndex === i ? (
+                      <Minus className="w-5 h-5" />
+                    ) : (
+                      <Plus className="w-5 h-5" />
+                    )}
+                  </span>
+                </button>
 
-                    <AnimatePresence>
-                      {hoveredIndex === i ? (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <p className="text-gray-500 text-sm leading-relaxed mb-3">
-                            {dept.desc}
-                          </p>
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs text-gray-400">
-                              {dept.doctors} Doctors
-                            </span>
-                            <span className="flex items-center gap-1 text-gold text-sm font-semibold">
-                              Learn More
-                              <ChevronRight className="w-4 h-4" />
-                            </span>
-                          </div>
-                        </motion.div>
-                      ) : (
-                        <p className="text-gray-400 text-sm line-clamp-2">
+                <AnimatePresence>
+                  {openIndex === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pb-6 pl-10 sm:pl-14">
+                        <p className="font-body text-base text-charcoal-light leading-relaxed mb-4 max-w-2xl">
                           {dept.desc}
                         </p>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </div>
+                        <Link
+                          href="/contact"
+                          className="inline-flex items-center gap-2 font-body text-sm text-sage hover:text-sage-dark transition-colors duration-300 group"
+                        >
+                          Learn More
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
-          </AnimatePresence>
-        </div>
-
-        {filtered.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-400 text-lg">
-              No departments found matching &ldquo;{searchQuery}&rdquo;
-            </p>
           </div>
-        )}
-      </div>
-    </section>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-terracotta py-16 sm:py-20">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+          <h2 className="font-display text-3xl sm:text-4xl text-white tracking-tight mb-4">
+            Need Help Choosing?
+          </h2>
+          <p className="font-body text-base text-white/70 mb-6">
+            Our patient coordination team can guide you to the right department.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-terracotta font-body text-sm font-medium rounded-full hover:bg-ivory transition-colors duration-300 group"
+          >
+            Contact Us
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+          </Link>
+        </div>
+      </section>
+    </>
   );
 }

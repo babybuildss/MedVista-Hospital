@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/hospital/Navbar";
 import Footer from "@/components/hospital/Footer";
+import SmoothScroll from "@/components/hospital/SmoothScroll";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "MedVista Premier | World-Class Healthcare, Reimagined",
+  title: "MedVista Premier | Where Care Becomes Craft",
   description:
-    "MedVista Premier Hospital — Where Compassion Meets Innovation. Offering world-class healthcare with 500+ beds, 200+ doctors, and 50+ specialities. Experience premium medical excellence.",
+    "MedVista Premier Hospital — Where Care Becomes Craft. A world-class healthcare institution combining clinical excellence with the art of healing. 500+ beds, 200+ physicians, 50+ specialities.",
   keywords: [
     "hospital",
     "healthcare",
@@ -30,11 +33,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "MedVista Premier" }],
   openGraph: {
-    title: "MedVista Premier | World-Class Healthcare, Reimagined",
+    title: "MedVista Premier | Where Care Becomes Craft",
     description:
-      "Where Compassion Meets Innovation. Premium healthcare with cutting-edge technology.",
+      "A world-class healthcare institution combining clinical excellence with the art of healing.",
     type: "website",
     siteName: "MedVista Premier",
+  },
+  icons: {
+    icon: "/favicon.png",
   },
 };
 
@@ -46,11 +52,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-foreground overflow-x-hidden`}
+        className={`${playfair.variable} ${dmSans.variable} antialiased bg-ivory text-charcoal overflow-x-hidden`}
       >
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

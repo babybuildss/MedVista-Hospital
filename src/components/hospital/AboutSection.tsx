@@ -1,326 +1,337 @@
 'use client';
 
+import { useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import {
-  Heart,
-  Shield,
-  Award,
-  Users,
-  Target,
-  Lightbulb,
-  Stethoscope,
-  Building2,
-} from 'lucide-react';
-import ScrollReveal from './ScrollReveal';
-import AnimatedCounter from './AnimatedCounter';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PageHero from '@/components/hospital/PageHero';
 
-const stats = [
-  { value: 500, suffix: '+', label: 'Hospital Beds' },
-  { value: 200, suffix: '+', label: 'Expert Doctors' },
-  { value: 50, suffix: '+', label: 'Specialities' },
-  { value: 25, suffix: '+', label: 'Years of Excellence' },
-];
+gsap.registerPlugin(ScrollTrigger);
 
-const values = [
-  {
-    icon: Heart,
-    title: 'Compassion',
-    desc: 'Every patient is treated with empathy, dignity, and personalized care.',
-  },
-  {
-    icon: Shield,
-    title: 'Integrity',
-    desc: 'Transparent practices and ethical standards guide every decision we make.',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Innovation',
-    desc: 'Pioneering medical technology and research for better patient outcomes.',
-  },
-  {
-    icon: Users,
-    title: 'Collaboration',
-    desc: 'Multidisciplinary teams working together for comprehensive care.',
-  },
-];
-
-const milestones = [
-  { year: '1998', title: 'Foundation', desc: 'MedVista Premier established with a vision for excellence in healthcare.' },
-  { year: '2005', title: 'JCI Accreditation', desc: 'Achieved Joint Commission International accreditation for quality standards.' },
-  { year: '2010', title: 'Centre of Excellence', desc: 'Launched dedicated Cardiac and Neuro Sciences centres.' },
-  { year: '2016', title: 'Digital Transformation', desc: 'Integrated AI-powered diagnostics and robotic surgery systems.' },
-  { year: '2020', title: 'Pandemic Leadership', desc: 'Led regional COVID-19 response with 300+ dedicated beds.' },
-  { year: '2024', title: 'Global Recognition', desc: 'Ranked among top 50 hospitals worldwide by Newsweek.' },
-];
-
-const awards = [
-  'JCI Accredited',
-  'NABH Certified',
-  'NABL Certified Labs',
-  'Best Hospital Award 2024',
-  'Green Hospital Certification',
-  'WHO Recognition',
-];
-
-const leadership = [
-  { name: 'Dr. Arun Mehta', role: 'Chairman & Chief Mentor', specialty: 'Cardiology' },
-  { name: 'Dr. Priya Sharma', role: 'CEO & Managing Director', specialty: 'Healthcare Management' },
-  { name: 'Dr. Rajesh Kumar', role: 'Medical Director', specialty: 'Neuro Surgery' },
-  { name: 'Dr. Anita Desai', role: 'Director of Research', specialty: 'Oncology' },
-];
-
-export default function AboutSection() {
+/* ─── Story Section ─── */
+function StorySection() {
   return (
-    <section id="about" className="relative">
-      {/* Stats Bar */}
-      <div className="bg-navy-gradient py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, i) => (
-              <ScrollReveal key={stat.label} delay={i * 0.1}>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-gradient-gold mb-2">
-                    <AnimatedCounter
-                      end={stat.value}
-                      suffix={stat.suffix}
-                    />
-                  </div>
-                  <div className="text-white/60 text-sm font-medium tracking-wider uppercase">
-                    {stat.label}
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </div>
+    <section className="bg-ivory py-16 sm:py-24">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          {/* Left: Large image */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative -mb-24 lg:-mb-32 z-10"
+          >
+            <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] overflow-hidden">
+              <Image
+                src="/images/about-hospital.png"
+                alt="MedVista Hospital founding"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+          </motion.div>
 
-      {/* About Content */}
-      <div className="bg-premium-light py-12 sm:py-16 lg:py-20 xl:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            {/* Image */}
-            <ScrollReveal direction="left">
-              <div className="relative">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <Image
-                    src="/images/about-hospital.png"
-                    alt="MedVista Premier Hospital"
-                    width={600}
-                    height={450}
-                    className="w-full h-auto object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
-                </div>
-                {/* Floating badge */}
-                <div className="absolute -bottom-6 -right-4 sm:-right-6 bg-white rounded-2xl p-4 sm:p-6 shadow-xl">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-gold to-gold-light rounded-xl flex items-center justify-center">
-                      <Award className="w-6 h-6 text-navy" />
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-navy">25+</div>
-                      <div className="text-xs text-gray-500">Years of Trust</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Text */}
-            <ScrollReveal direction="right">
-              <div>
-                <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                  About MedVista
-                </span>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy mt-3 mb-6 leading-tight">
-                  A Legacy of Healing,{' '}
-                  <span className="text-gradient-blue">A Future of Hope</span>
-                </h2>
-                <div className="section-divider mb-6" />
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  Founded in 1998, MedVista Premier has grown from a modest 50-bed
-                  facility to a 500+ bed multi-speciality hospital recognized globally
-                  for clinical excellence. Our commitment to integrating advanced
-                  technology with compassionate care has earned the trust of over
-                  2 million patients.
-                </p>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  With state-of-the-art infrastructure, internationally trained
-                  specialists, and a patient-first philosophy, we continue to set
-                  new benchmarks in healthcare delivery across the Asia-Pacific region.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-navy/5 rounded-lg">
-                    <Stethoscope className="w-4 h-4 text-medical-blue" />
-                    <span className="text-sm font-medium text-navy">50+ Specialities</span>
-                  </div>
-                  <div className="flex items-center gap-2 px-4 py-2 bg-navy/5 rounded-lg">
-                    <Building2 className="w-4 h-4 text-medical-blue" />
-                    <span className="text-sm font-medium text-navy">12 Operation Theatres</span>
-                  </div>
-                  <div className="flex items-center gap-2 px-4 py-2 bg-navy/5 rounded-lg">
-                    <Target className="w-4 h-4 text-medical-blue" />
-                    <span className="text-sm font-medium text-navy">Zero-Error Protocol</span>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </div>
-
-      {/* Mission & Values */}
-      <div className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-10 sm:mb-16">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Our Foundation
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-                Mission & Values
-              </h2>
-              <div className="section-divider mx-auto mb-6" />
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Our mission drives every aspect of our care — to deliver healthcare
-                that is accessible, innovative, and deeply compassionate.
+          {/* Right: Narrative text */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="pt-0 lg:pt-24"
+          >
+            <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+              Our Story
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-3 mb-6 leading-tight">
+              Founded on a Belief in{' '}
+              <span className="italic text-sage">Better</span>
+            </h2>
+            <div className="h-[1.5px] w-16 bg-sage mb-6" />
+            <div className="space-y-4 font-body text-base md:text-lg text-charcoal-light leading-relaxed">
+              <p>
+                In 1998, Dr. Vikram Mehta opened the doors of a modest 50-bed
+                facility in New Delhi with a singular vision: to create a hospital
+                where technology serves humanity, not the other way around.
+              </p>
+              <p>
+                What began as a small team of dedicated physicians has grown into
+                a 500+ bed institution recognized globally for clinical excellence.
+                But growth was never the goal — impact was.
+              </p>
+              <p>
+                Today, MedVista Premier stands as a testament to the idea that
+                healthcare, at its best, is both a science and an art. Every
+                decision, every investment, every hire is guided by the question:
+                &ldquo;Will this make our patients&rsquo; lives better?&rdquo;
               </p>
             </div>
-          </ScrollReveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((item, i) => (
-              <ScrollReveal key={item.title} delay={i * 0.1}>
-                <div className="group p-6 bg-white rounded-2xl border border-gray-100 hover:border-gold/30 hover:shadow-xl hover:shadow-gold/5 transition-all duration-500 card-hover">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-navy to-navy-light flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-                    <item.icon className="w-7 h-7 text-gold" />
-                  </div>
-                  <h3 className="text-lg font-bold text-navy mb-2">{item.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          </motion.div>
         </div>
       </div>
+    </section>
+  );
+}
 
-      {/* Timeline */}
-      <div className="bg-premium-gray py-12 sm:py-16 lg:py-20 xl:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-10 sm:mb-16">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Our Journey
+/* ─── Mission & Values ─── */
+function MissionValues() {
+  const values = [
+    {
+      num: '01',
+      title: 'Clinical Excellence',
+      desc: 'We pursue the highest standards of medical practice, continuously investing in research, technology, and talent to deliver outcomes that matter.',
+    },
+    {
+      num: '02',
+      title: 'Compassionate Care',
+      desc: 'Behind every treatment plan is a human story. We listen, we empathize, and we treat every patient as we would want our own family treated.',
+    },
+    {
+      num: '03',
+      title: 'Innovation',
+      desc: 'From genomic medicine to AI-assisted diagnostics, we embrace technologies that push the boundaries of what healthcare can achieve.',
+    },
+    {
+      num: '04',
+      title: 'Integrity',
+      desc: 'Transparency and ethics are non-negotiable. We earn trust through honest communication, fair practices, and unwavering accountability.',
+    },
+  ];
+
+  return (
+    <section className="bg-ivory-dark py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-16"
+        >
+          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+            What Guides Us
+          </span>
+          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+            Our Values
+          </h2>
+        </motion.div>
+
+        <div className="space-y-0">
+          {values.map((value, i) => (
+            <motion.div
+              key={value.num}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="grid grid-cols-[60px_1fr] sm:grid-cols-[80px_1fr] gap-4 sm:gap-8 py-8 sm:py-10 border-b border-border-custom items-start"
+            >
+              <span className="font-display text-3xl sm:text-4xl text-sage/40">
+                {value.num}
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-                Key Milestones
-              </h2>
-              <div className="section-divider mx-auto" />
-            </div>
-          </ScrollReveal>
-
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold via-medical-blue to-teal" />
-
-            <div className="space-y-12">
-              {milestones.map((m, i) => (
-                <ScrollReveal
-                  key={m.year}
-                  delay={i * 0.1}
-                  direction={i % 2 === 0 ? 'left' : 'right'}
-                >
-                  <div
-                    className={`relative flex items-center gap-8 ${
-                      i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                    }`}
-                  >
-                    <div
-                      className={`flex-1 ${
-                        i % 2 === 0 ? 'md:text-right' : 'md:text-left'
-                      } pl-12 md:pl-0`}
-                    >
-                      <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                        <span className="text-gold font-bold text-lg">{m.year}</span>
-                        <h4 className="text-navy font-bold text-lg mt-1">{m.title}</h4>
-                        <p className="text-gray-500 text-sm mt-2">{m.desc}</p>
-                      </div>
-                    </div>
-                    {/* Dot */}
-                    <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-gold rounded-full -translate-x-1/2 border-4 border-white shadow-md z-10" />
-                    <div className="flex-1 hidden md:block" />
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
+              <div>
+                <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-charcoal mb-3">
+                  {value.title}
+                </h3>
+                <p className="font-body text-base text-charcoal-light leading-relaxed max-w-2xl">
+                  {value.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
+    </section>
+  );
+}
 
-      {/* Leadership */}
-      <div className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-10 sm:mb-16">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Leadership
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">
-                Guided by Excellence
-              </h2>
-              <div className="section-divider mx-auto" />
-            </div>
-          </ScrollReveal>
+/* ─── Timeline ─── */
+function Timeline() {
+  const events = [
+    { year: '1998', desc: 'MedVista founded as a 50-bed community hospital in New Delhi.' },
+    { year: '2003', desc: 'First cardiac catheterization lab established. Performed 500 procedures in the first year.' },
+    { year: '2008', desc: 'Expanded to 200 beds. Launched the Neuro Sciences Centre of Excellence.' },
+    { year: '2013', desc: 'Received NABH accreditation. International patient program launched.' },
+    { year: '2018', desc: 'Crossed 500 beds. Opened Genomics & Precision Medicine Centre.' },
+    { year: '2023', desc: 'Completed 2 million patient milestones. Recognized among top 10 hospitals in Asia.' },
+  ];
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {leadership.map((person, i) => (
-              <ScrollReveal key={person.name} delay={i * 0.1}>
-                <div className="group p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-xl hover:border-gold/30 transition-all duration-500 card-hover">
-                  <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-navy to-navy-light flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <span className="text-2xl font-bold text-gold">
-                      {person.name.charAt(0)}
-                    </span>
-                  </div>
-                  <h4 className="text-navy font-bold">{person.name}</h4>
-                  <p className="text-gold text-sm font-medium mt-1">{person.role}</p>
-                  <p className="text-gray-400 text-xs mt-1">{person.specialty}</p>
+  return (
+    <section className="bg-cream py-20 sm:py-28">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-16"
+        >
+          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+            Our Journey
+          </span>
+          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+            A Growing Legacy
+          </h2>
+        </motion.div>
+
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-[1px] bg-border-custom" />
+
+          <div className="space-y-12">
+            {events.map((event, i) => (
+              <motion.div
+                key={event.year}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className={`relative pl-12 sm:pl-20 grid sm:grid-cols-2 gap-2 sm:gap-8 items-start ${
+                  i % 2 === 0 ? '' : ''
+                }`}
+              >
+                {/* Dot on line */}
+                <div className="absolute left-3 sm:left-7 top-1 w-3 h-3 rounded-full bg-sage border-2 border-cream" />
+
+                <div className="font-display text-2xl sm:text-3xl text-sage">
+                  {event.year}
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Awards */}
-      <div className="bg-navy-gradient py-12 sm:py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-10 sm:mb-12">
-              <span className="text-gold font-semibold text-sm tracking-widest uppercase">
-                Recognition
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-4">
-                Awards & Accreditations
-              </h2>
-              <div className="section-divider mx-auto" />
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {awards.map((award, i) => (
-              <ScrollReveal key={award} delay={i * 0.08}>
-                <div className="glass rounded-xl p-4 text-center hover:bg-white/10 transition-all duration-300 group">
-                  <Award className="w-8 h-8 text-gold mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <span className="text-white/80 text-sm font-medium">{award}</span>
-                </div>
-              </ScrollReveal>
+                <p className="font-body text-base text-charcoal-light leading-relaxed">
+                  {event.desc}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/* ─── Leadership ─── */
+function Leadership() {
+  const leaders = [
+    { initials: 'VM', name: 'Dr. Vikram Mehta', title: 'Founder & Chairman' },
+    { initials: 'PS', name: 'Dr. Priya Sharma', title: 'Chief Medical Officer' },
+    { initials: 'AK', name: 'Dr. Arjun Kapoor', title: 'Director, Cardiac Sciences' },
+    { initials: 'NR', name: 'Dr. Nisha Reddy', title: 'Director, Neuro Sciences' },
+  ];
+
+  return (
+    <section className="bg-ivory py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-16"
+        >
+          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+            Our People
+          </span>
+          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+            Leadership
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+          {leaders.map((leader, i) => (
+            <motion.div
+              key={leader.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="text-center"
+            >
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-sage-light mx-auto mb-4 flex items-center justify-center">
+                <span className="font-display text-2xl sm:text-3xl text-sage">
+                  {leader.initials}
+                </span>
+              </div>
+              <h3 className="font-display text-lg sm:text-xl text-charcoal mb-1">
+                {leader.name}
+              </h3>
+              <p className="font-body text-xs text-warm-gray tracking-wide">
+                {leader.title}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Awards ─── */
+function Awards() {
+  const awards = [
+    'NABH Accreditation — Full Cycle (2013–Present)',
+    'Best Multi-Speciality Hospital — National Health Awards 2022',
+    'Excellence in Cardiac Care — Asian Medical Excellence Awards 2021',
+    'Top 10 Hospitals in India — India Today Rankings 2023',
+    'Green Hospital Certification — Indian Green Building Council',
+    'Patient Safety Excellence Award — JCI Standards Compliance',
+  ];
+
+  return (
+    <section className="bg-ivory-dark py-20 sm:py-28">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-16"
+        >
+          <span className="font-body text-xs tracking-[0.25em] uppercase text-sage">
+            Recognition
+          </span>
+          <h2 className="font-display text-4xl sm:text-5xl text-charcoal tracking-tight mt-3">
+            Awards & Accreditations
+          </h2>
+        </motion.div>
+
+        <div className="space-y-0">
+          {awards.map((award, i) => (
+            <motion.div
+              key={award}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.06 }}
+              className="flex items-start gap-4 py-4 border-b border-border-custom"
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-terracotta flex-shrink-0 mt-2" />
+              <span className="font-body text-base text-charcoal-light">{award}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Main Export ─── */
+export default function AboutSection() {
+  return (
+    <>
+      <PageHero
+        title="About"
+        breadcrumb={[
+          { label: 'Home', href: '/' },
+          { label: 'About' },
+        ]}
+      />
+      <StorySection />
+      <MissionValues />
+      <Timeline />
+      <Leadership />
+      <Awards />
+    </>
   );
 }

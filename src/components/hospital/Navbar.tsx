@@ -1,22 +1,17 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { usePathname } from 'next/navigation';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Menu,
-  X,
-  Phone,
-  Heart,
-} from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Departments', href: '/departments' },
-  { label: 'Facilities', href: '/facilities' },
-  { label: 'Contact', href: '/contact' },
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/departments', label: 'Departments' },
+  { href: '/facilities', label: 'Facilities' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
@@ -24,161 +19,140 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
-
-  const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 50);
-  }, []);
+  const prevPathname = useRef(pathname);
 
   useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-  // On inner pages, navbar should always be solid
-  const isSolid = !isHome || scrolled;
-
-  const closeMobileMenu = useCallback(() => {
-    setMobileOpen(false);
   }, []);
+
+  // Close mobile menu on navigation via click handlers instead of effect
+  const handleNavClick = () => {
+    setMobileOpen(false);
+  };
+
+  // Reset scroll state when pathname changes
+  useEffect(() => {
+    if (prevPathname.current !== pathname) {
+      prevPathname.current = pathname;
+    }
+  }, [pathname]);
+
+  const showIvoryBg = scrolled || !isHome;
 
   return (
     <>
-      <motion.nav
+      <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isSolid
-            ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5'
+          showIvoryBg
+            ? 'bg-ivory/95 border-b border-border-custom'
             : 'bg-transparent'
         }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link
-              href="/"
-              className="flex items-center gap-3 group"
+        <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-baseline gap-2 group">
+            <span
+              className={`font-display text-xl sm:text-2xl tracking-tight transition-colors duration-300 ${
+                showIvoryBg ? 'text-charcoal' : 'text-charcoal'
+              }`}
             >
-              <div
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                  isSolid
-                    ? 'bg-navy'
-                    : 'bg-white/15 backdrop-blur-sm border border-white/20'
-                }`}
-              >
-                <Heart
-                  className={`w-5 h-5 ${
-                    isSolid ? 'text-gold' : 'text-white'
-                  }`}
-                />
-              </div>
-              <div className="flex flex-col">
-                <span
-                  className={`text-lg font-bold tracking-tight transition-colors duration-300 ${
-                    isSolid ? 'text-navy' : 'text-white'
+              MedVista
+            </span>
+            <span
+              className={`text-[9px] tracking-[0.25em] uppercase font-body font-medium transition-colors duration-300 ${
+                showIvoryBg ? 'text-warm-gray' : 'text-warm-gray'
+              }`}
+            >
+              Premier
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative font-body text-sm tracking-wide transition-colors duration-300 py-1 ${
+                    isActive
+                      ? 'text-sage'
+                      : showIvoryBg
+                      ? 'text-charcoal-light hover:text-sage'
+                      : 'text-charcoal-light hover:text-sage'
                   }`}
                 >
-                  MedVista
-                </span>
-                <span
-                  className={`text-[10px] tracking-[0.2em] uppercase transition-colors duration-300 ${
-                    isSolid ? 'text-gold' : 'text-gold-light'
-                  }`}
-                >
-                  Premier
-                </span>
-              </div>
+                  {link.label}
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-underline"
+                      className="absolute -bottom-0.5 left-0 right-0 h-[1.5px] bg-sage"
+                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Book Appointment + Mobile Toggle */}
+          <div className="flex items-center gap-4">
+            <Link
+              href="/contact"
+              className="hidden sm:inline-flex items-center px-5 py-2 bg-sage text-white font-body text-sm rounded-full hover:bg-sage-dark transition-colors duration-300"
+            >
+              Book Appointment
             </Link>
 
-            {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                      isActive
-                        ? isSolid
-                          ? 'text-navy bg-navy/5'
-                          : 'text-white bg-white/10'
-                        : isSolid
-                        ? 'text-gray-700 hover:text-navy hover:bg-gray-100'
-                        : 'text-white/90 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* Right side */}
-            <div className="flex items-center gap-3">
-              {/* Emergency */}
-              <a
-                href="tel:+911800123456"
-                className={`hidden md:flex items-center gap-2 text-sm font-medium transition-colors duration-300 ${
-                  isSolid ? 'text-red-600' : 'text-red-400'
-                }`}
-              >
-                <Phone className="w-4 h-4" />
-                <span>1800-123-456</span>
-              </a>
-
-              {/* CTA Button */}
-              <Link
-                href="/contact"
-                className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-gold to-gold-light text-navy font-semibold text-sm rounded-xl hover:shadow-lg hover:shadow-gold/25 transition-all duration-300 hover:scale-105"
-              >
-                Book Appointment
-              </Link>
-
-              {/* Mobile Menu */}
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className={`lg:hidden p-2 rounded-lg transition-colors duration-300 ${
-                  isSolid
-                    ? 'text-navy hover:bg-gray-100'
-                    : 'text-white hover:bg-white/10'
-                }`}
-                aria-label="Toggle menu"
-              >
-                {mobileOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </button>
-            </div>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className={`md:hidden p-2 transition-colors duration-300 ${
+                showIvoryBg ? 'text-charcoal' : 'text-charcoal'
+              }`}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
-        </div>
-      </motion.nav>
+        </nav>
+      </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            className="fixed inset-0 z-40 lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <div
-              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-40 bg-charcoal/20"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
-              className="absolute right-0 top-0 h-full w-72 sm:w-80 bg-white shadow-2xl"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-ivory border-l border-border-custom"
             >
-              <div className="p-6 pt-24">
-                <div className="flex flex-col gap-2">
+              <div className="flex flex-col h-full p-6">
+                <div className="flex justify-end mb-8">
+                  <button
+                    onClick={() => setMobileOpen(false)}
+                    className="p-2 text-charcoal"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                <div className="flex flex-col gap-6">
                   {navLinks.map((link, i) => {
                     const isActive = pathname === link.href;
                     return (
@@ -190,11 +164,9 @@ export default function Navbar() {
                       >
                         <Link
                           href={link.href}
-                          onClick={closeMobileMenu}
-                          className={`block px-4 py-3 font-medium rounded-xl transition-colors ${
-                            isActive
-                              ? 'text-navy bg-navy/5'
-                              : 'text-navy hover:bg-gray-50'
+                          onClick={handleNavClick}
+                          className={`font-display text-2xl transition-colors duration-300 ${
+                            isActive ? 'text-sage' : 'text-charcoal hover:text-sage'
                           }`}
                         >
                           {link.label}
@@ -203,25 +175,19 @@ export default function Navbar() {
                     );
                   })}
                 </div>
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <a
-                    href="tel:+911800123456"
-                    className="flex items-center gap-2 text-red-600 font-medium px-4 py-3"
-                  >
-                    <Phone className="w-4 h-4" />
-                    1800-123-456
-                  </a>
+
+                <div className="mt-auto">
                   <Link
                     href="/contact"
-                    onClick={closeMobileMenu}
-                    className="block w-full mt-3 px-5 py-3 bg-gradient-to-r from-gold to-gold-light text-navy font-semibold rounded-xl text-center"
+                    onClick={handleNavClick}
+                    className="inline-flex items-center justify-center w-full px-5 py-3 bg-sage text-white font-body text-sm rounded-full hover:bg-sage-dark transition-colors duration-300"
                   >
                     Book Appointment
                   </Link>
                 </div>
               </div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
