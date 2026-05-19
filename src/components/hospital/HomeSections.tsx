@@ -38,6 +38,16 @@ const MedicalCrossScene = dynamic(() => import('@/components/hospital/3d/Medical
   loading: () => <div className="w-full h-[280px] sm:h-[350px] flex items-center justify-center"><div className="text-warm-gray text-sm font-body animate-pulse">Loading 3D...</div></div>,
 });
 
+const CellDivisionScene = dynamic(() => import('@/components/hospital/3d/CellDivision'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[280px] sm:h-[350px] flex items-center justify-center"><div className="text-warm-gray text-sm font-body animate-pulse">Loading 3D...</div></div>,
+});
+
+const StethoscopeScene = dynamic(() => import('@/components/hospital/3d/Stethoscope'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[280px] sm:h-[350px] flex items-center justify-center"><div className="text-warm-gray text-sm font-body animate-pulse">Loading 3D...</div></div>,
+});
+
 /* ═══════════════════════════════════════
    PHILOSOPHY — Full-width cinematic text with particle wave
    ═══════════════════════════════════════ */
@@ -365,6 +375,78 @@ function NeuroInnovationSection() {
 }
 
 /* ═══════════════════════════════════════
+   CELL REGENERATION — 3D Cell Division
+   ═══════════════════════════════════════ */
+function CellRegenerationSection() {
+  return (
+    <section className="bg-cream py-20 sm:py-28 relative overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="relative order-2 lg:order-1">
+            <div className="absolute -inset-4 border border-sage/10 rounded-sm pointer-events-none" />
+            <CellDivisionScene />
+          </motion.div>
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }} className="order-1 lg:order-2">
+            <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sage">Regenerative Medicine</span>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2 mb-6 leading-tight">
+              The Science of<br /><span className="italic text-sage">Renewal</span>
+            </h2>
+            <div className="h-px w-12 bg-sage mb-6" />
+            <p className="font-body text-[14px] sm:text-[15px] text-charcoal-light leading-relaxed mb-8 max-w-md">
+              Our regenerative medicine programme harnesses the body&apos;s innate ability to heal itself. From stem cell therapies to tissue engineering, we are pioneering treatments that don&apos;t just manage disease — they reverse it.
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              {['Stem Cell Therapy', 'Tissue Engineering', 'Gene Therapy', 'Organ Regeneration'].map((item) => (
+                <div key={item} className="flex items-center gap-2.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-sage flex-shrink-0" />
+                  <span className="font-body text-[13px] text-charcoal-light">{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════
+   DIAGNOSTIC EXCELLENCE — 3D Stethoscope
+   ═══════════════════════════════════════ */
+function DiagnosticExcellenceSection() {
+  return (
+    <section className="bg-ivory py-20 sm:py-28 relative overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <span className="font-body text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-terracotta">Diagnostic Precision</span>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight mt-2 mb-6 leading-tight">
+              Listening to<br /><span className="italic text-terracotta">What Matters</span>
+            </h2>
+            <div className="h-px w-12 bg-terracotta mb-6" />
+            <p className="font-body text-[14px] sm:text-[15px] text-charcoal-light leading-relaxed mb-8 max-w-md">
+              The art of diagnosis begins with listening — to the patient, to the body, to the subtle signals that others might miss. Our diagnostic programme combines time-honored clinical skills with the most advanced imaging and laboratory technology available.
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              {['AI-Assisted Diagnosis', 'Real-Time Monitoring', 'Preventive Screening', 'Second Opinion Program'].map((item) => (
+                <div key={item} className="flex items-center gap-2.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-terracotta flex-shrink-0" />
+                  <span className="font-body text-[13px] text-charcoal-light">{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }} className="relative">
+            <div className="absolute -inset-4 border border-terracotta/10 rounded-sm pointer-events-none" />
+            <StethoscopeScene />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════
    PATIENT STORIES — Dark cinematic quotes
    ═══════════════════════════════════════ */
 function PatientStories() {
@@ -510,7 +592,9 @@ export default function HomeSections() {
       <StatsSection />
       <TechnologySection />
       <CardiacExcellenceSection />
+      <CellRegenerationSection />
       <MolecularMedicineSection />
+      <DiagnosticExcellenceSection />
       <NeuroInnovationSection />
       <PatientStories />
       <CTASection />

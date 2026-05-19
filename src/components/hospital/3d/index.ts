@@ -7,3 +7,5 @@ export { default as CellDivisionScene } from './CellDivision';
 export { default as ParticleWaveScene } from './ParticleWave';
 export { default as StethoscopeScene } from './Stethoscope';
 export { default as DNAEnhancedScene } from './DNAEnhanced';
+export { default as HeroBackgroundScene } from './HeroBackground';
+export { default as LoadingScreenScene } from './LoadingScreen';

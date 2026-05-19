@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/hospital/Navbar";
 import Footer from "@/components/hospital/Footer";
 import SmoothScroll from "@/components/hospital/SmoothScroll";
+import LoadingWrapper from "@/components/hospital/LoadingWrapper";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -54,11 +55,13 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${dmSans.variable} antialiased bg-ivory text-charcoal overflow-x-hidden`}
       >
-        <SmoothScroll>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </SmoothScroll>
+        <LoadingWrapper>
+          <SmoothScroll>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </SmoothScroll>
+        </LoadingWrapper>
       </body>
     </html>
   );
