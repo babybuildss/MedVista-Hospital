@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
@@ -24,6 +25,15 @@ import {
 } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import AnimatedCounter from './AnimatedCounter';
+
+const DNAHelixScene = dynamic(() => import('./DNAHelix'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] flex items-center justify-center">
+      <div className="text-white/30 text-sm">Loading 3D Visualization...</div>
+    </div>
+  ),
+});
 
 const centres = [
   {
@@ -183,7 +193,7 @@ export default function HomeSections() {
   return (
     <section id="home-content">
       {/* Centres of Excellence */}
-      <div className="bg-white py-20 lg:py-28">
+      <div className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
@@ -234,7 +244,7 @@ export default function HomeSections() {
       </div>
 
       {/* Expert Doctors */}
-      <div className="bg-premium-gray py-20 lg:py-28">
+      <div className="bg-premium-gray py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
@@ -256,7 +266,7 @@ export default function HomeSections() {
             {doctors.map((doc, i) => (
               <ScrollReveal key={doc.name} delay={i * 0.1}>
                 <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover">
-                  <div className="relative h-72 overflow-hidden">
+                  <div className="relative h-56 sm:h-64 lg:h-72 overflow-hidden">
                     <Image
                       src={doc.image}
                       alt={doc.name}
@@ -289,9 +299,9 @@ export default function HomeSections() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <ScrollReveal direction="left">
-              <div className="flex items-center gap-6">
-                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center animate-emergency">
-                  <Siren className="w-10 h-10 text-white" />
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center animate-emergency">
+                  <Siren className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                 </div>
                 <div>
                   <h3 className="text-2xl md:text-3xl font-bold text-white">
@@ -326,7 +336,7 @@ export default function HomeSections() {
       </div>
 
       {/* Advanced Technology - 3D Section */}
-      <div className="bg-navy-gradient py-20 lg:py-28 overflow-hidden">
+      <div className="bg-navy-gradient py-12 sm:py-16 lg:py-20 xl:py-28 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <ScrollReveal direction="left">
@@ -373,15 +383,7 @@ export default function HomeSections() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-medical-blue/20 to-teal/20 rounded-2xl blur-xl" />
                 <div className="relative glass-dark rounded-2xl p-4 overflow-hidden">
-                  {/* DNA Helix will be dynamically imported and placed here */}
-                  <div
-                    id="dna-helix-container"
-                    className="w-full h-[400px] md:h-[500px] flex items-center justify-center"
-                  >
-                    <div className="text-white/30 text-center">
-                      <p className="text-sm">Loading 3D Visualization...</p>
-                    </div>
-                  </div>
+                  <DNAHelixScene />
                 </div>
               </div>
             </ScrollReveal>
@@ -390,7 +392,7 @@ export default function HomeSections() {
       </div>
 
       {/* Patient Success Stories */}
-      <div className="bg-premium-light py-20 lg:py-28">
+      <div className="bg-premium-light py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
@@ -445,7 +447,7 @@ export default function HomeSections() {
       </div>
 
       {/* Health Packages */}
-      <div className="bg-white py-20 lg:py-28">
+      <div className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
@@ -463,7 +465,7 @@ export default function HomeSections() {
             </div>
           </ScrollReveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {healthPackages.map((pkg, i) => (
               <ScrollReveal key={pkg.name} delay={i * 0.1}>
                 <div
@@ -528,7 +530,7 @@ export default function HomeSections() {
       </div>
 
       {/* Appointment Process */}
-      <div className="bg-premium-gray py-20 lg:py-28">
+      <div className="bg-premium-gray py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
@@ -612,7 +614,7 @@ export default function HomeSections() {
       </div>
 
       {/* CTA Section */}
-      <div className="relative py-24 lg:py-32 overflow-hidden">
+      <div className="relative py-16 sm:py-20 lg:py-24 xl:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-light to-navy" />
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-medical-blue/10 rounded-full blur-3xl" />

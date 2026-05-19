@@ -48,7 +48,7 @@ export default function Footer() {
         <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gold/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-8">
         {/* Main Footer */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
@@ -189,16 +189,29 @@ export default function Footer() {
             © {new Date().getFullYear()} MedVista Premier Hospital. All rights
             reserved.
           </p>
-          <div className="flex gap-6">
-            <button className="hover:text-white/60 transition-colors">
-              Privacy Policy
-            </button>
-            <button className="hover:text-white/60 transition-colors">
-              Terms of Service
-            </button>
-            <button className="hover:text-white/60 transition-colors">
-              Cookie Policy
-            </button>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
+            <div className="flex gap-6">
+              <button className="hover:text-white/60 transition-colors">
+                Privacy Policy
+              </button>
+              <button className="hover:text-white/60 transition-colors">
+                Terms of Service
+              </button>
+              <button className="hover:text-white/60 transition-colors">
+                Cookie Policy
+              </button>
+            </div>
+            <p className="text-white/40">
+              Made with <span className="text-pink-400">💝</span> by{' '}
+              <a
+                href="https://chaicodestudio.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold hover:text-gold-light font-semibold transition-colors duration-300 underline underline-offset-2"
+              >
+                ChaiCodeStudio
+              </a>
+            </p>
           </div>
         </div>
       </div>

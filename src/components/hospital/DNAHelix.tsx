@@ -148,11 +148,12 @@ function FloatingParticles() {
 
 export default function DNAHelixScene() {
   return (
-    <div className="w-full h-[400px] md:h-[500px]">
+    <div className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px]">
       <Canvas
         camera={{ position: [0, 0, 6], fov: 50 }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
+        dpr={[1, 1.5]}
       >
         <DNAHelix />
         <FloatingParticles />

@@ -161,7 +161,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
-              className="absolute right-0 top-0 h-full w-80 bg-white shadow-2xl"
+              className="absolute right-0 top-0 h-full w-72 sm:w-80 bg-white shadow-2xl"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}

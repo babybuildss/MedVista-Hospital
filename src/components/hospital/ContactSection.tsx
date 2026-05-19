@@ -78,7 +78,7 @@ export default function ContactSection() {
     : doctors;
 
   return (
-    <section id="contact" className="bg-white py-20 lg:py-28">
+    <section id="contact" className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="text-center mb-16">

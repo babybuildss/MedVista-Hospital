@@ -16,7 +16,7 @@ import { Heart } from 'lucide-react';
 const DNAHelixScene = dynamic(() => import('@/components/hospital/DNAHelix'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-[400px] md:h-[500px] flex items-center justify-center">
+    <div className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] flex items-center justify-center">
       <div className="text-white/30 text-sm">Loading 3D...</div>
     </div>
   ),
@@ -122,9 +122,9 @@ export default function Home() {
           <FacilitiesSection />
 
           {/* DNA Helix 3D Section - embedded between sections */}
-          <div className="bg-navy-gradient py-20">
+          <div className="bg-navy-gradient py-12 sm:py-16 lg:py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 <motion.div
                   initial={{ opacity: 0, x: -40 }}
                   whileInView={{ opacity: 1, x: 0 }}

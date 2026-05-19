@@ -97,9 +97,9 @@ export default function AboutSection() {
       </div>
 
       {/* About Content */}
-      <div className="bg-premium-light py-20 lg:py-28">
+      <div className="bg-premium-light py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Image */}
             <ScrollReveal direction="left">
               <div className="relative">
@@ -115,7 +115,7 @@ export default function AboutSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
                 </div>
                 {/* Floating badge */}
-                <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-xl">
+                <div className="absolute -bottom-6 -right-4 sm:-right-6 bg-white rounded-2xl p-4 sm:p-6 shadow-xl">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-gold to-gold-light rounded-xl flex items-center justify-center">
                       <Award className="w-6 h-6 text-navy" />
@@ -173,10 +173,10 @@ export default function AboutSection() {
       </div>
 
       {/* Mission & Values */}
-      <div className="bg-white py-20 lg:py-28">
+      <div className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="text-center mb-16">
+            <div className="text-center mb-10 sm:mb-16">
               <span className="text-gold font-semibold text-sm tracking-widest uppercase">
                 Our Foundation
               </span>
@@ -208,10 +208,10 @@ export default function AboutSection() {
       </div>
 
       {/* Timeline */}
-      <div className="bg-premium-gray py-20 lg:py-28">
+      <div className="bg-premium-gray py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="text-center mb-16">
+            <div className="text-center mb-10 sm:mb-16">
               <span className="text-gold font-semibold text-sm tracking-widest uppercase">
                 Our Journey
               </span>
@@ -261,10 +261,10 @@ export default function AboutSection() {
       </div>
 
       {/* Leadership */}
-      <div className="bg-white py-20 lg:py-28">
+      <div className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="text-center mb-16">
+            <div className="text-center mb-10 sm:mb-16">
               <span className="text-gold font-semibold text-sm tracking-widest uppercase">
                 Leadership
               </span>
@@ -295,10 +295,10 @@ export default function AboutSection() {
       </div>
 
       {/* Awards */}
-      <div className="bg-navy-gradient py-20">
+      <div className="bg-navy-gradient py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="text-center mb-12">
+            <div className="text-center mb-10 sm:mb-12">
               <span className="text-gold font-semibold text-sm tracking-widest uppercase">
                 Recognition
               </span>

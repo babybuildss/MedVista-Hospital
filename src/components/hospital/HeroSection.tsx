@@ -46,7 +46,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="home" className="relative h-screen overflow-hidden">
+    <section id="home" className="relative h-screen min-h-[600px] max-h-[1000px] overflow-hidden">
       {/* Background Slideshow */}
       <div className="absolute inset-0">
         {heroImages.map((src, i) => (
@@ -88,7 +88,7 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Headlines */}
-        <div className="h-24 sm:h-28 md:h-32 flex items-center justify-center mb-8 overflow-hidden">
+        <div className="h-20 sm:h-24 md:h-28 lg:h-32 flex items-center justify-center mb-6 sm:mb-8 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.h1
               key={currentHeadline}
@@ -96,7 +96,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.8, ease: 'easeInOut' }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white tracking-tight leading-tight"
             >
               {headlines[currentHeadline].split(' ').map((word, i) => (
                 <span key={i}>
@@ -116,7 +116,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="text-white/70 text-lg sm:text-xl max-w-2xl mb-10 leading-relaxed"
+          className="text-white/70 text-base sm:text-lg md:text-xl max-w-2xl mb-8 sm:mb-10 leading-relaxed px-4"
         >
           Experience unparalleled medical excellence with cutting-edge technology,
           world-renowned specialists, and compassionate care that puts you first.
@@ -152,7 +152,7 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Slide indicators */}
-        <div className="absolute bottom-28 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        <div className="absolute bottom-20 sm:bottom-28 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {heroImages.map((_, i) => (
             <button
               key={i}

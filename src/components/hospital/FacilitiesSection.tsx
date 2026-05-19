@@ -78,7 +78,7 @@ export default function FacilitiesSection() {
   return (
     <section id="facilities" className="relative">
       {/* Facilities Header */}
-      <div className="bg-premium-gray py-20 lg:py-28">
+      <div className="bg-premium-gray py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
@@ -105,7 +105,7 @@ export default function FacilitiesSection() {
                   onClick={() => setSelectedFacility(i)}
                 >
                   <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover">
-                    <div className="relative h-52 overflow-hidden">
+                    <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden">
                       <Image
                         src={facility.image}
                         alt={facility.title}
@@ -172,7 +172,7 @@ export default function FacilitiesSection() {
       </div>
 
       {/* Patient Care Experience */}
-      <div className="bg-white py-20 lg:py-28">
+      <div className="bg-white py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
@@ -208,7 +208,7 @@ export default function FacilitiesSection() {
       </div>
 
       {/* International Patients */}
-      <div className="bg-premium-gray py-20 lg:py-28">
+      <div className="bg-premium-gray py-12 sm:py-16 lg:py-20 xl:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <ScrollReveal direction="left">
@@ -287,7 +287,7 @@ export default function FacilitiesSection() {
               onClick={() => setSelectedFacility(null)}
             />
             <motion.div
-              className="relative bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl"
+              className="relative bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -299,7 +299,7 @@ export default function FacilitiesSection() {
                 <X className="w-5 h-5 text-gray-700" />
               </button>
 
-              <div className="relative h-56">
+              <div className="relative h-44 sm:h-56">
                 <Image
                   src={facilityCategories[selectedFacility].image}
                   alt={facilityCategories[selectedFacility].title}
