@@ -78,7 +78,11 @@ function PhilosophySection() {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      ScrollTrigger.getAll().forEach((t) => {
+        if (t.trigger && section.contains(t.trigger)) {
+          t.kill();
+        }
+      });
     };
   }, []);
 

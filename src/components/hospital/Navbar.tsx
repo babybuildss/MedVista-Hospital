@@ -18,7 +18,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === '/';
   const prevPathname = useRef(pathname);
 
   useEffect(() => {
@@ -29,44 +28,36 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on navigation via click handlers instead of effect
   const handleNavClick = () => {
     setMobileOpen(false);
   };
 
-  // Reset scroll state when pathname changes
   useEffect(() => {
     if (prevPathname.current !== pathname) {
       prevPathname.current = pathname;
     }
   }, [pathname]);
 
-  const showIvoryBg = scrolled || !isHome;
+  // Navbar is always ivory-themed on home now (since hero is also ivory)
+  // On other pages, it starts ivory and stays ivory on scroll
+  const showIvoryBg = true;
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          showIvoryBg
-            ? 'bg-ivory/95 border-b border-border-custom'
+          scrolled
+            ? 'bg-ivory/95 backdrop-blur-sm border-b border-border-custom shadow-sm'
             : 'bg-transparent'
         }`}
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-baseline gap-2 group">
-            <span
-              className={`font-display text-xl sm:text-2xl tracking-tight transition-colors duration-300 ${
-                showIvoryBg ? 'text-charcoal' : 'text-charcoal'
-              }`}
-            >
+            <span className="font-display text-xl sm:text-2xl tracking-tight text-charcoal transition-colors duration-300">
               MedVista
             </span>
-            <span
-              className={`text-[9px] tracking-[0.25em] uppercase font-body font-medium transition-colors duration-300 ${
-                showIvoryBg ? 'text-warm-gray' : 'text-warm-gray'
-              }`}
-            >
+            <span className="text-[9px] tracking-[0.25em] uppercase font-body font-medium text-warm-gray transition-colors duration-300">
               Premier
             </span>
           </Link>
@@ -82,8 +73,6 @@ export default function Navbar() {
                   className={`relative font-body text-sm tracking-wide transition-colors duration-300 py-1 ${
                     isActive
                       ? 'text-sage'
-                      : showIvoryBg
-                      ? 'text-charcoal-light hover:text-sage'
                       : 'text-charcoal-light hover:text-sage'
                   }`}
                 >
@@ -111,9 +100,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className={`md:hidden p-2 transition-colors duration-300 ${
-                showIvoryBg ? 'text-charcoal' : 'text-charcoal'
-              }`}
+              className="md:hidden p-2 text-charcoal transition-colors duration-300"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
