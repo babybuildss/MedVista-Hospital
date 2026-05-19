@@ -76,49 +76,49 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-20 md:py-28 bg-section-dark">
+    <section id="contact" className="relative py-10 sm:py-20 md:py-28 bg-section-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <ScrollReveal>
-          <div className="text-center mb-14">
-            <span className="text-[#d4a853] text-sm font-semibold tracking-wider uppercase">
+          <div className="text-center mb-10 sm:mb-14">
+            <span className="text-[#d4a853] text-xs sm:text-sm font-semibold tracking-wider uppercase">
               Get In Touch
             </span>
-            <h2 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+            <h2 className="mt-2 sm:mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
               Book Your <span className="gradient-text">Appointment</span>
             </h2>
-            <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
+            <p className="mt-3 sm:mt-4 text-gray-400 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
               Experience premium healthcare with a seamless appointment process.
               Our dedicated team is here to assist you every step of the way.
             </p>
-            <div className="section-divider mt-6" />
+            <div className="section-divider mt-4 sm:mt-6" />
           </div>
         </ScrollReveal>
 
-        <div className="grid lg:grid-cols-5 gap-8">
+        <div className="grid lg:grid-cols-5 gap-6 sm:gap-8">
           {/* Form */}
           <div className="lg:col-span-3">
             <ScrollReveal direction="left">
-              <div className="glass rounded-2xl p-6 md:p-8">
+              <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8">
                 {submitted ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
+                    className="text-center py-10 sm:py-12"
                   >
-                    <CheckCircle className="w-16 h-16 text-[#d4a853] mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-white mb-2">
+                    <CheckCircle className="w-12 h-12 sm:w-16 sm:h-16 text-[#d4a853] mx-auto mb-3 sm:mb-4" />
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
                       Appointment Requested!
                     </h3>
-                    <p className="text-gray-400">
+                    <p className="text-gray-400 text-sm sm:text-base">
                       Our team will contact you within 2 hours to confirm your appointment.
                     </p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid sm:grid-cols-2 gap-5">
+                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          <User className="w-4 h-4 inline mr-1" /> Full Name
+                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5 sm:mb-2">
+                          <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1" /> Full Name
                         </label>
                         <input
                           type="text"
@@ -126,13 +126,13 @@ export default function ContactSection() {
                           value={formData.name}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 transition-colors"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 text-white text-sm sm:text-base placeholder-gray-500 transition-colors"
                           placeholder="Your full name"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          <Phone className="w-4 h-4 inline mr-1" /> Phone Number
+                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5 sm:mb-2">
+                          <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1" /> Phone Number
                         </label>
                         <input
                           type="tel"
@@ -140,37 +140,37 @@ export default function ContactSection() {
                           value={formData.phone}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 transition-colors"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 text-white text-sm sm:text-base placeholder-gray-500 transition-colors"
                           placeholder="+91 98765 43210"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        <Mail className="w-4 h-4 inline mr-1" /> Email Address
+                      <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5 sm:mb-2">
+                        <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1" /> Email Address
                       </label>
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 transition-colors"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 text-white text-sm sm:text-base placeholder-gray-500 transition-colors"
                         placeholder="your.email@example.com"
                       />
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          <Stethoscope className="w-4 h-4 inline mr-1" /> Department
+                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5 sm:mb-2">
+                          <Stethoscope className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1" /> Department
                         </label>
                         <select
                           name="department"
                           value={formData.department}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white transition-colors"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 text-white text-sm sm:text-base transition-colors"
                         >
                           <option value="" className="bg-[#0a1628]">Select Department</option>
                           {departments.map((d) => (
@@ -181,14 +181,14 @@ export default function ContactSection() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          <Shield className="w-4 h-4 inline mr-1" /> Preferred Doctor
+                        <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5 sm:mb-2">
+                          <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1" /> Preferred Doctor
                         </label>
                         <select
                           name="doctor"
                           value={formData.doctor}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white transition-colors"
+                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 text-white text-sm sm:text-base transition-colors"
                         >
                           <option value="" className="bg-[#0a1628]">Any Available Doctor</option>
                           {doctors.map((d) => (
@@ -201,28 +201,28 @@ export default function ContactSection() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        <Calendar className="w-4 h-4 inline mr-1" /> Preferred Date
+                      <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5 sm:mb-2">
+                        <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1" /> Preferred Date
                       </label>
                       <input
                         type="date"
                         name="date"
                         value={formData.date}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white transition-colors"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 text-white text-sm sm:text-base transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        <MessageSquare className="w-4 h-4 inline mr-1" /> Message
+                      <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5 sm:mb-2">
+                        <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1" /> Message
                       </label>
                       <textarea
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
                         rows={3}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 transition-colors resize-none"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 text-white text-sm sm:text-base placeholder-gray-500 transition-colors resize-none"
                         placeholder="Briefly describe your concern..."
                       />
                     </div>
@@ -231,9 +231,9 @@ export default function ContactSection() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       type="submit"
-                      className="w-full btn-gold flex items-center justify-center gap-2 text-base !py-4"
+                      className="w-full btn-gold flex items-center justify-center gap-2 text-sm sm:text-base !py-3 sm:!py-4"
                     >
-                      <Send className="w-5 h-5" />
+                      <Send className="w-4 h-4 sm:w-5 sm:h-5" />
                       Request Appointment
                     </motion.button>
                   </form>
@@ -243,22 +243,22 @@ export default function ContactSection() {
           </div>
 
           {/* Contact Info */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
             {/* Emergency */}
             <ScrollReveal direction="right" delay={0.1}>
-              <div className="bg-gradient-to-br from-red-600 to-red-800 rounded-2xl p-6 animate-emergency-pulse">
+              <div className="bg-gradient-to-br from-red-600 to-red-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 animate-emergency-pulse">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                    <Phone className="w-6 h-6 text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-white/20 flex items-center justify-center">
+                    <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-white font-bold text-lg">Emergency</h3>
-                    <p className="text-red-100 text-sm">24/7 Emergency & Trauma</p>
+                    <h3 className="text-white font-bold text-base sm:text-lg">Emergency</h3>
+                    <p className="text-red-100 text-xs sm:text-sm">24/7 Emergency & Trauma</p>
                   </div>
                 </div>
                 <a
                   href="tel:+911800633847"
-                  className="block w-full text-center bg-white text-red-700 font-bold py-3 rounded-xl text-lg hover:bg-red-50 transition-colors"
+                  className="block w-full text-center bg-white text-red-700 font-bold py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-base sm:text-lg hover:bg-red-50 transition-colors"
                 >
                   1800-MED-VISTA
                 </a>
@@ -267,14 +267,14 @@ export default function ContactSection() {
 
             {/* Contact Cards */}
             <ScrollReveal direction="right" delay={0.2}>
-              <div className="glass rounded-2xl p-6 space-y-5">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#d4a853] to-[#e8c97a] flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5 text-[#0a1628]" />
+              <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-5">
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-[#d4a853] to-[#e8c97a] flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#0a1628]" />
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold text-sm">Address</h4>
-                    <p className="text-gray-400 text-sm mt-1">
+                    <h4 className="text-white font-semibold text-xs sm:text-sm">Address</h4>
+                    <p className="text-gray-400 text-xs sm:text-sm mt-0.5 sm:mt-1">
                       42, Healthcare Avenue, Medical District,
                       <br />
                       New Delhi — 110001, India
@@ -282,27 +282,27 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3b82f6] to-[#1e40af] flex items-center justify-center shrink-0">
-                    <Mail className="w-5 h-5 text-white" />
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-[#3b82f6] to-[#1e40af] flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold text-sm">Email</h4>
-                    <p className="text-gray-400 text-sm mt-1">info@medvista.com</p>
-                    <p className="text-gray-400 text-sm">appointments@medvista.com</p>
+                    <h4 className="text-white font-semibold text-xs sm:text-sm">Email</h4>
+                    <p className="text-gray-400 text-xs sm:text-sm mt-0.5 sm:mt-1">info@medvista.com</p>
+                    <p className="text-gray-400 text-xs sm:text-sm">appointments@medvista.com</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#0d9488] to-[#14b8a6] flex items-center justify-center shrink-0">
-                    <Clock className="w-5 h-5 text-white" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-[#0d9488] to-[#14b8a6] flex items-center justify-center shrink-0">
+                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold text-sm">Timings</h4>
-                    <p className="text-gray-400 text-sm mt-1">
+                    <h4 className="text-white font-semibold text-xs sm:text-sm">Timings</h4>
+                    <p className="text-gray-400 text-xs sm:text-sm mt-0.5 sm:mt-1">
                       OPD: Mon–Sat, 9:00 AM – 7:00 PM
                     </p>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-400 text-xs sm:text-sm">
                       Emergency: 24/7/365
                     </p>
                   </div>
@@ -312,12 +312,12 @@ export default function ContactSection() {
 
             {/* Map Placeholder */}
             <ScrollReveal direction="right" delay={0.3}>
-              <div className="glass rounded-2xl p-6">
-                <div className="w-full h-40 rounded-xl bg-[#132040] flex items-center justify-center">
+              <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                <div className="w-full h-28 sm:h-40 rounded-lg sm:rounded-xl bg-[#132040] flex items-center justify-center">
                   <div className="text-center">
-                    <MapPin className="w-8 h-8 text-[#d4a853] mx-auto mb-2" />
-                    <p className="text-gray-400 text-sm">Interactive Map</p>
-                    <p className="text-gray-500 text-xs mt-1">
+                    <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-[#d4a853] mx-auto mb-1.5 sm:mb-2" />
+                    <p className="text-gray-400 text-xs sm:text-sm">Interactive Map</p>
+                    <p className="text-gray-500 text-[10px] sm:text-xs mt-0.5 sm:mt-1">
                       42, Healthcare Avenue, New Delhi
                     </p>
                   </div>
@@ -327,16 +327,16 @@ export default function ContactSection() {
 
             {/* Insurance */}
             <ScrollReveal direction="right" delay={0.4}>
-              <div className="glass rounded-2xl p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <CreditCard className="w-5 h-5 text-[#d4a853]" />
-                  <h4 className="text-white font-semibold text-sm">Insurance Partners</h4>
+              <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                  <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-[#d4a853]" />
+                  <h4 className="text-white font-semibold text-xs sm:text-sm">Insurance Partners</h4>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {insurancePartners.map((p) => (
                     <span
                       key={p}
-                      className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-xs font-medium"
+                      className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg bg-white/5 border border-white/10 text-gray-300 text-[10px] sm:text-xs font-medium"
                     >
                       {p}
                     </span>

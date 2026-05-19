@@ -5,7 +5,6 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Deterministic pseudo-random number generator
 function seededRandom(seed: number) {
   const x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
   return x - Math.floor(x);
@@ -13,10 +12,10 @@ function seededRandom(seed: number) {
 
 function DNAStrand() {
   const groupRef = useRef<THREE.Group>(null);
-  const particleCount = 80;
-  const helixRadius = 1.5;
-  const helixHeight = 8;
-  const turns = 3;
+  const particleCount = 60;
+  const helixRadius = 1.2;
+  const helixHeight = 6;
+  const turns = 2.5;
 
   const strand1Positions = useMemo(() => {
     const positions: THREE.Vector3[] = [];
@@ -62,28 +61,25 @@ function DNAStrand() {
     <group ref={groupRef}>
       {strand1Positions.map((pos, i) => (
         <mesh key={`s1-${i}`} position={pos}>
-          <sphereGeometry args={[0.08, 8, 8]} />
+          <sphereGeometry args={[0.06, 8, 8]} />
           <meshStandardMaterial color="#3b82f6" emissive="#1e40af" emissiveIntensity={0.5} />
         </mesh>
       ))}
-
       {strand2Positions.map((pos, i) => (
         <mesh key={`s2-${i}`} position={pos}>
-          <sphereGeometry args={[0.08, 8, 8]} />
+          <sphereGeometry args={[0.06, 8, 8]} />
           <meshStandardMaterial color="#0d9488" emissive="#0d9488" emissiveIntensity={0.5} />
         </mesh>
       ))}
-
       {connectorPositions.map(([start, end], i) => {
         const mid = start.clone().add(end).multiplyScalar(0.5);
         const length = start.distanceTo(end);
         const direction = end.clone().sub(start).normalize();
         const quaternion = new THREE.Quaternion();
         quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction);
-
         return (
           <mesh key={`c-${i}`} position={mid} quaternion={quaternion}>
-            <cylinderGeometry args={[0.02, 0.02, length, 4]} />
+            <cylinderGeometry args={[0.015, 0.015, length, 4]} />
             <meshStandardMaterial color="#d4a853" emissive="#d4a853" emissiveIntensity={0.3} transparent opacity={0.6} />
           </mesh>
         );
@@ -94,9 +90,7 @@ function DNAStrand() {
 
 function FloatingParticles() {
   const particlesRef = useRef<THREE.Points>(null);
-  const count = 200;
-
-  // Use deterministic seed-based random to avoid Math.random in render
+  const count = 150;
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -117,40 +111,31 @@ function FloatingParticles() {
   return (
     <points ref={particlesRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={count}
-          array={positions}
-          itemSize={3}
-        />
+        <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial
-        size={0.03}
-        color="#d4a853"
-        transparent
-        opacity={0.6}
-        sizeAttenuation
-      />
+      <pointsMaterial size={0.03} color="#d4a853" transparent opacity={0.6} sizeAttenuation />
     </points>
   );
 }
 
+// This component is loaded via dynamic() with ssr:false in HomeSections,
+// so it only runs on the client. No need for mounted state.
 export default function DNAHelix() {
   return (
-    <div className="w-full h-[500px] md:h-[600px]">
+    <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
       <Canvas
-        camera={{ position: [0, 0, 6], fov: 50 }}
+        camera={{ position: [0, 0, 5], fov: 50 }}
         style={{ background: 'transparent' }}
+        dpr={[1, 2]}
+        gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight intensity={0.3} />
+        <ambientLight intensity={0.4} />
         <pointLight position={[5, 5, 5]} intensity={0.8} color="#3b82f6" />
         <pointLight position={[-5, -5, 5]} intensity={0.5} color="#0d9488" />
         <pointLight position={[0, 0, 5]} intensity={0.4} color="#d4a853" />
-
         <Float speed={1} rotationIntensity={0.3} floatIntensity={0.5}>
           <DNAStrand />
         </Float>
-
         <FloatingParticles />
       </Canvas>
     </div>

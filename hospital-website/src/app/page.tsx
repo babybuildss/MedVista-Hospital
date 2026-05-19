@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import HomeSections from '@/components/HomeSections';
@@ -11,18 +10,6 @@ import DepartmentsSection from '@/components/DepartmentsSection';
 import FacilitiesSection from '@/components/FacilitiesSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
-
-const DNAHelix = dynamic(() => import('@/components/DNAHelix'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[500px] flex items-center justify-center">
-      <div className="text-center">
-        <div className="w-12 h-12 border-2 border-[#d4a853] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-gray-500 text-sm">Loading 3D Experience...</p>
-      </div>
-    </div>
-  ),
-});
 
 function LoadingScreen() {
   return (
@@ -91,27 +78,11 @@ export default function Home() {
       >
         <Navbar />
         <main className="flex flex-col min-h-screen">
-          {/* Home Section: Hero + Home Sub-sections */}
           <HeroSection />
           <HomeSections />
-
-          {/* 3D DNA Helix Experience */}
-          <section className="bg-section-dark py-8">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6">
-              <DNAHelix />
-            </div>
-          </section>
-
-          {/* About Section */}
           <AboutSection />
-
-          {/* Departments Section */}
           <DepartmentsSection />
-
-          {/* Facilities Section */}
           <FacilitiesSection />
-
-          {/* Contact / Appointment Section */}
           <ContactSection />
         </main>
         <Footer />

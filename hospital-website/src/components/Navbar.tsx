@@ -48,11 +48,11 @@ export default function Navbar() {
         }`}
       >
         {/* Top Emergency Bar */}
-        <div className={`transition-all duration-500 overflow-hidden ${scrolled ? 'h-0 opacity-0' : 'h-9 opacity-100'}`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-9 text-xs">
-            <div className="flex items-center gap-4 text-gray-300">
+        <div className={`transition-all duration-500 overflow-hidden ${scrolled ? 'h-0 opacity-0' : 'h-8 sm:h-9 opacity-100'}`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-8 sm:h-9 text-[10px] sm:text-xs">
+            <div className="flex items-center gap-2 sm:gap-4 text-gray-300">
               <span className="flex items-center gap-1">
-                <Phone className="w-3 h-3" />
+                <Phone className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                 Emergency: +91 1800-MED-VISTA
               </span>
               <span className="hidden sm:inline">|</span>
@@ -66,21 +66,21 @@ export default function Navbar() {
 
         {/* Main Nav */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-14 sm:h-16 md:h-20">
             {/* Logo */}
             <motion.div
               className="flex items-center gap-2 cursor-pointer"
               whileHover={{ scale: 1.02 }}
               onClick={() => handleNavClick('#home')}
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4a853] to-[#e8c97a] flex items-center justify-center">
-                <span className="text-[#0a1628] font-bold text-lg">M</span>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-[#d4a853] to-[#e8c97a] flex items-center justify-center">
+                <span className="text-[#0a1628] font-bold text-sm sm:text-lg">M</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-white font-bold text-lg leading-tight tracking-wide">
+                <span className="text-white font-bold text-sm sm:text-lg leading-tight tracking-wide">
                   MedVista
                 </span>
-                <span className="text-[#d4a853] text-[10px] font-medium tracking-[0.2em] uppercase">
+                <span className="text-[#d4a853] text-[8px] sm:text-[10px] font-medium tracking-[0.15em] sm:tracking-[0.2em] uppercase">
                   Premier Hospital
                 </span>
               </div>
@@ -101,7 +101,7 @@ export default function Navbar() {
             </div>
 
             {/* Right Side */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <a
                 href="tel:+911800633847"
                 className="hidden md:flex items-center gap-2 text-sm text-gray-300 hover:text-[#d4a853] transition-colors"
@@ -114,17 +114,17 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleNavClick('#contact')}
-                className="btn-gold text-sm !py-2.5 !px-6 hidden sm:block"
+                className="btn-gold text-xs sm:text-sm !py-2 sm:!py-2.5 !px-4 sm:!px-6 hidden sm:block"
               >
                 Book Appointment
               </motion.button>
 
               {/* Mobile Menu Toggle */}
               <button
-                className="lg:hidden text-white p-2"
+                className="lg:hidden text-white p-1.5 sm:p-2"
                 onClick={() => setMobileOpen(!mobileOpen)}
               >
-                {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {mobileOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
               </button>
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function Navbar() {
             transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="fixed inset-0 z-40 bg-[#0a1628]/98 backdrop-blur-2xl lg:hidden"
           >
-            <div className="flex flex-col items-center justify-center h-full gap-6">
+            <div className="flex flex-col items-center justify-center h-full gap-5 sm:gap-6">
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.name}
@@ -149,10 +149,10 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 + 0.2 }}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-2xl font-light text-white hover:text-[#d4a853] transition-colors flex items-center gap-2"
+                  className="text-xl sm:text-2xl font-light text-white hover:text-[#d4a853] transition-colors flex items-center gap-2"
                 >
                   {link.name}
-                  <ChevronRight className="w-5 h-5 opacity-0 group-hover:opacity-100" />
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.button>
               ))}
 
@@ -161,7 +161,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
                 onClick={() => handleNavClick('#contact')}
-                className="btn-gold mt-4 text-lg"
+                className="btn-gold mt-4 text-base sm:text-lg"
               >
                 Book Appointment
               </motion.button>
@@ -170,9 +170,9 @@ export default function Navbar() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9 }}
-                className="mt-8 text-center text-gray-400"
+                className="mt-6 sm:mt-8 text-center text-gray-400"
               >
-                <p className="flex items-center justify-center gap-2">
+                <p className="flex items-center justify-center gap-2 text-sm sm:text-base">
                   <Phone className="w-4 h-4" />
                   Emergency: +91 1800-MED-VISTA
                 </p>

@@ -60,7 +60,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="home" className="relative w-full h-screen overflow-hidden">
+    <section id="home" className="relative w-full h-screen min-h-[500px] sm:min-h-[600px] overflow-hidden">
       {/* Background Images */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -85,7 +85,7 @@ export default function HeroSection() {
       <ParticleBackground />
 
       {/* Content */}
-      <div className="relative z-[5] flex flex-col items-center justify-center h-full text-center px-4">
+      <div className="relative z-[5] flex flex-col items-center justify-center h-full text-center px-4 sm:px-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -100,11 +100,11 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass mb-8"
+              className="inline-flex items-center gap-2 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full glass mb-5 sm:mb-8"
             >
-              <span className="w-2 h-2 rounded-full bg-[#d4a853] animate-pulse" />
-              <span className="text-[#d4a853] text-sm font-medium tracking-wider uppercase">
-                Award-Winning Healthcare Excellence
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#d4a853] animate-pulse" />
+              <span className="text-[#d4a853] text-[10px] sm:text-sm font-medium tracking-wider uppercase">
+                Award-Winning Healthcare
               </span>
             </motion.div>
 
@@ -113,7 +113,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight tracking-tight"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight tracking-tight"
             >
               {heroSlides[current].title}
             </motion.h1>
@@ -123,7 +123,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight gradient-text"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tight gradient-text"
             >
               {heroSlides[current].subtitle}
             </motion.h1>
@@ -133,7 +133,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.6 }}
-              className="mt-6 text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed"
+              className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-xl sm:max-w-2xl mx-auto leading-relaxed px-2"
             >
               {heroSlides[current].description}
             </motion.p>
@@ -143,15 +143,15 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1, duration: 0.6 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-10"
             >
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection('#contact')}
-                className="btn-gold flex items-center gap-2 text-base"
+                className="btn-gold flex items-center gap-2 text-sm sm:text-base !py-3 sm:!py-[14px] !px-6 sm:!px-9 w-full sm:w-auto justify-center"
               >
-                <Calendar className="w-5 h-5" />
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                 Book Appointment
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
@@ -160,7 +160,7 @@ export default function HeroSection() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection('#about')}
-                className="btn-outline-gold flex items-center gap-2 text-base"
+                className="btn-outline-gold flex items-center gap-2 text-sm sm:text-base !py-2.5 sm:!py-3 !px-6 sm:!px-8 w-full sm:w-auto justify-center"
               >
                 Explore Excellence
                 <ArrowRight className="w-4 h-4" />
@@ -170,7 +170,7 @@ export default function HeroSection() {
         </AnimatePresence>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-28 left-1/2 -translate-x-1/2 flex items-center gap-3 z-[5]">
+        <div className="absolute bottom-20 sm:bottom-24 md:bottom-28 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-3 z-[5]">
           {heroSlides.map((_, i) => (
             <button
               key={i}
@@ -183,7 +183,7 @@ export default function HeroSection() {
               }}
               className={`transition-all duration-500 rounded-full ${
                 i === current
-                  ? 'w-10 h-2 bg-[#d4a853]'
+                  ? 'w-8 sm:w-10 h-2 bg-[#d4a853]'
                   : 'w-2 h-2 bg-white/40 hover:bg-white/60'
               }`}
             />
@@ -195,10 +195,10 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[5]"
+          className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 sm:gap-2 z-[5]"
         >
-          <span className="text-xs text-gray-400 tracking-widest uppercase">Scroll</span>
-          <ChevronDown className="w-5 h-5 text-[#d4a853] animate-scroll-bounce" />
+          <span className="text-[10px] sm:text-xs text-gray-400 tracking-widest uppercase">Scroll</span>
+          <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-[#d4a853] animate-scroll-bounce" />
         </motion.div>
       </div>
     </section>

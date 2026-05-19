@@ -2,6 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import ScrollReveal from './ScrollReveal';
 import {
   Heart,
@@ -20,6 +21,18 @@ import {
   Zap,
   CheckCircle,
 } from 'lucide-react';
+
+const DNAHelix = dynamic(() => import('./DNAHelix'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-12 h-12 border-2 border-[#d4a853] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-gray-500 text-sm">Loading 3D Experience...</p>
+      </div>
+    </div>
+  ),
+});
 
 /* ─── Centres of Excellence ─── */
 const centres = [
@@ -83,31 +96,31 @@ export default function HomeSections() {
   return (
     <div className="bg-white">
       {/* ─── Centres of Excellence ─── */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-12 sm:py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <div className="text-center mb-14">
-              <span className="text-[#d4a853] text-sm font-semibold tracking-wider uppercase">
+            <div className="text-center mb-10 sm:mb-14">
+              <span className="text-[#d4a853] text-xs sm:text-sm font-semibold tracking-wider uppercase">
                 World-Class Expertise
               </span>
-              <h2 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-bold text-[#0a1628]">
+              <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#0a1628]">
                 Centres of <span className="gradient-text">Excellence</span>
               </h2>
               <div className="section-divider mt-6" />
             </div>
           </ScrollReveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {centres.map((c, i) => (
               <ScrollReveal key={c.title} delay={i * 0.08}>
                 <motion.div
                   whileHover={{ y: -8, boxShadow: '0 20px 60px rgba(0,0,0,0.12)' }}
-                  className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100 card-hover group"
+                  className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 shadow-lg border border-gray-100 card-hover group"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#0a1628] to-[#132040] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-                    <c.icon className="w-7 h-7 text-[#d4a853]" />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-[#0a1628] to-[#132040] flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-110 transition-transform duration-300">
+                    <c.icon className="w-6 h-6 sm:w-7 sm:h-7 text-[#d4a853]" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#0a1628] mb-2">{c.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-[#0a1628] mb-2">{c.title}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">{c.desc}</p>
                   <div className="mt-4 flex items-center gap-1 text-[#d4a853] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     Explore <ArrowRight className="w-4 h-4" />
@@ -120,39 +133,39 @@ export default function HomeSections() {
       </section>
 
       {/* ─── Expert Doctors ─── */}
-      <section className="py-16 md:py-24 bg-section-light">
+      <section className="py-12 sm:py-16 md:py-24 bg-section-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <div className="text-center mb-14">
-              <span className="text-[#d4a853] text-sm font-semibold tracking-wider uppercase">
+            <div className="text-center mb-10 sm:mb-14">
+              <span className="text-[#d4a853] text-xs sm:text-sm font-semibold tracking-wider uppercase">
                 Meet Our Specialists
               </span>
-              <h2 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-bold text-[#0a1628]">
+              <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#0a1628]">
                 Expert <span className="gradient-text-blue">Doctors</span>
               </h2>
               <div className="section-divider mt-6" />
             </div>
           </ScrollReveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {doctors.map((doc, i) => (
               <ScrollReveal key={doc.name} delay={i * 0.1}>
                 <motion.div
                   whileHover={{ y: -8 }}
                   className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 card-hover group"
                 >
-                  <div className="relative h-64 overflow-hidden">
+                  <div className="relative h-40 sm:h-52 md:h-64 overflow-hidden">
                     <img
                       src={doc.image}
                       alt={doc.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+                    <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="w-full btn-gold text-sm !py-2.5"
+                        className="w-full btn-gold text-xs sm:text-sm !py-2 sm:!py-2.5"
                         onClick={() => {
                           const el = document.querySelector('#contact');
                           if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -162,9 +175,9 @@ export default function HomeSections() {
                       </motion.button>
                     </div>
                   </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-[#0a1628] text-lg">{doc.name}</h3>
-                    <p className="text-[#d4a853] text-sm mt-1">{doc.specialty}</p>
+                  <div className="p-3 sm:p-4 md:p-5">
+                    <h3 className="font-bold text-[#0a1628] text-sm sm:text-base md:text-lg">{doc.name}</h3>
+                    <p className="text-[#d4a853] text-xs sm:text-sm mt-1">{doc.specialty}</p>
                   </div>
                 </motion.div>
               </ScrollReveal>
@@ -174,33 +187,33 @@ export default function HomeSections() {
       </section>
 
       {/* ─── Emergency Section ─── */}
-      <section className="relative py-16 md:py-20 bg-gradient-to-r from-red-700 via-red-600 to-red-700 overflow-hidden">
+      <section className="relative py-10 sm:py-16 md:py-20 bg-gradient-to-r from-red-700 via-red-600 to-red-700 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/hero-1.png')] bg-cover bg-center" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex flex-col items-center text-center md:flex-row md:items-center md:text-left md:justify-between gap-6 md:gap-8">
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <Siren className="w-8 h-8 text-white animate-pulse" />
-                <span className="text-white/80 text-sm font-semibold tracking-wider uppercase">
+              <div className="flex items-center gap-3 mb-3 sm:mb-4 justify-center md:justify-start">
+                <Siren className="w-6 h-6 sm:w-8 sm:h-8 text-white animate-pulse" />
+                <span className="text-white/80 text-xs sm:text-sm font-semibold tracking-wider uppercase">
                   24/7 Emergency
                 </span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
                 Emergency & Trauma Centre
               </h2>
-              <p className="mt-3 text-red-100 text-base md:text-lg max-w-xl">
+              <p className="mt-2 sm:mt-3 text-red-100 text-sm sm:text-base md:text-lg max-w-xl">
                 Our Level 1 Trauma Centre is equipped for any medical emergency.
                 Golden-hour protocols ensure life-saving treatment within minutes.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
               <a
                 href="tel:+911800633847"
-                className="flex items-center gap-2 bg-white text-red-700 font-bold px-8 py-4 rounded-full text-lg hover:bg-red-50 transition-colors animate-emergency-pulse"
+                className="flex items-center gap-2 bg-white text-red-700 font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-red-50 transition-colors animate-emergency-pulse"
               >
-                <Phone className="w-5 h-5" />
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
                 1800-MED-VISTA
               </a>
             </div>
@@ -208,18 +221,18 @@ export default function HomeSections() {
         </div>
       </section>
 
-      {/* ─── Advanced Technology (3D Section placeholder) ─── */}
-      <section className="py-16 md:py-24 bg-section-dark overflow-hidden">
+      {/* ─── Advanced Technology with 3D DNA Helix ─── */}
+      <section className="py-12 sm:py-16 md:py-24 bg-section-dark overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <div className="text-center mb-10">
-              <span className="text-[#d4a853] text-sm font-semibold tracking-wider uppercase">
+            <div className="text-center mb-10 sm:mb-14">
+              <span className="text-[#d4a853] text-xs sm:text-sm font-semibold tracking-wider uppercase">
                 Innovation Hub
               </span>
-              <h2 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+              <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
                 Advanced <span className="gradient-text">Technology</span>
               </h2>
-              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
                 From AI-powered diagnostics to robotic surgery, we invest in the future
                 of medicine to deliver better outcomes for every patient.
               </p>
@@ -227,7 +240,7 @@ export default function HomeSections() {
             </div>
           </ScrollReveal>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {[
               { icon: Zap, title: 'Robotic Surgery', desc: 'da Vinci and Mako robotic platforms for precision beyond human capability, reducing recovery time and improving outcomes.' },
               { icon: Activity, title: 'AI Diagnostics', desc: 'Artificial intelligence assists radiologists and pathologists in detecting conditions earlier and with greater accuracy.' },
@@ -236,50 +249,58 @@ export default function HomeSections() {
               <ScrollReveal key={item.title} delay={i * 0.1}>
                 <motion.div
                   whileHover={{ y: -6 }}
-                  className="glass rounded-2xl p-6 md:p-8 text-center card-hover"
+                  className="glass rounded-2xl p-5 sm:p-6 md:p-8 text-center card-hover"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#d4a853] to-[#e8c97a] flex items-center justify-center mx-auto mb-5">
-                    <item.icon className="w-8 h-8 text-[#0a1628]" />
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#d4a853] to-[#e8c97a] flex items-center justify-center mx-auto mb-4 sm:mb-5">
+                    <item.icon className="w-7 h-7 sm:w-8 sm:h-8 text-[#0a1628]" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">{item.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
                 </motion.div>
               </ScrollReveal>
             ))}
           </div>
 
-          {/* 3D DNA Helix Section */}
+          {/* 3D DNA Helix Visualization */}
           <ScrollReveal>
-            <div className="mt-16 text-center">
-              <p className="text-gray-500 text-sm mb-4">
-                Interactive 3D DNA Helix — Symbolizing Our Commitment to Genetic & Molecular Medicine
-              </p>
+            <div className="mt-12 sm:mt-16">
+              <div className="text-center mb-6 sm:mb-8">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
+                  Molecular Medicine Visualization
+                </h3>
+                <p className="text-gray-500 text-xs sm:text-sm">
+                  Interactive 3D DNA Helix — Symbolizing Our Commitment to Genetic & Molecular Medicine
+                </p>
+              </div>
+              <div className="max-w-4xl mx-auto">
+                <DNAHelix />
+              </div>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
       {/* ─── Health Packages ─── */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-12 sm:py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <div className="text-center mb-14">
-              <span className="text-[#d4a853] text-sm font-semibold tracking-wider uppercase">
+            <div className="text-center mb-10 sm:mb-14">
+              <span className="text-[#d4a853] text-xs sm:text-sm font-semibold tracking-wider uppercase">
                 Preventive Care
               </span>
-              <h2 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-bold text-[#0a1628]">
+              <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#0a1628]">
                 Health <span className="gradient-text-blue">Packages</span>
               </h2>
               <div className="section-divider mt-6" />
             </div>
           </ScrollReveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {packages.map((pkg, i) => (
               <ScrollReveal key={pkg.name} delay={i * 0.1}>
                 <motion.div
                   whileHover={{ y: -8 }}
-                  className={`rounded-2xl p-6 md:p-8 card-hover relative overflow-hidden ${
+                  className={`rounded-2xl p-5 sm:p-6 md:p-8 card-hover relative overflow-hidden ${
                     pkg.popular
                       ? 'bg-gradient-to-b from-[#0a1628] to-[#132040] text-white shadow-2xl shadow-[#0a1628]/30'
                       : 'bg-white border border-gray-200 shadow-lg'
@@ -291,28 +312,28 @@ export default function HomeSections() {
                     </div>
                   )}
                   <h3
-                    className={`text-lg font-bold mb-2 ${
+                    className={`text-base sm:text-lg font-bold mb-2 ${
                       pkg.popular ? 'text-white' : 'text-[#0a1628]'
                     }`}
                   >
                     {pkg.name}
                   </h3>
                   <div
-                    className={`text-3xl font-bold mb-1 ${
+                    className={`text-2xl sm:text-3xl font-bold mb-1 ${
                       pkg.popular ? 'gradient-text' : 'text-[#0a1628]'
                     }`}
                   >
                     {pkg.price}
                   </div>
-                  <p className={`text-sm mb-5 ${pkg.popular ? 'text-gray-400' : 'text-gray-500'}`}>
+                  <p className={`text-sm mb-4 sm:mb-5 ${pkg.popular ? 'text-gray-400' : 'text-gray-500'}`}>
                     {pkg.tests} tests included
                   </p>
-                  <ul className="space-y-2 mb-6">
+                  <ul className="space-y-2 mb-5 sm:mb-6">
                     {['Blood Profile', 'Imaging', 'Doctor Consultation', 'Report Delivery'].map(
                       (item) => (
                         <li key={item} className="flex items-center gap-2 text-sm">
                           <CheckCircle
-                            className={`w-4 h-4 ${
+                            className={`w-4 h-4 shrink-0 ${
                               pkg.popular ? 'text-[#d4a853]' : 'text-[#0d9488]'
                             }`}
                           />
@@ -326,7 +347,7 @@ export default function HomeSections() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`w-full py-3 rounded-xl font-semibold text-sm transition-colors ${
+                    className={`w-full py-2.5 sm:py-3 rounded-xl font-semibold text-sm transition-colors ${
                       pkg.popular
                         ? 'btn-gold'
                         : 'bg-[#0a1628] text-white hover:bg-[#132040]'
@@ -346,34 +367,34 @@ export default function HomeSections() {
       </section>
 
       {/* ─── Appointment Process ─── */}
-      <section className="py-16 md:py-24 bg-section-light">
+      <section className="py-12 sm:py-16 md:py-24 bg-section-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <div className="text-center mb-14">
-              <span className="text-[#d4a853] text-sm font-semibold tracking-wider uppercase">
+            <div className="text-center mb-10 sm:mb-14">
+              <span className="text-[#d4a853] text-xs sm:text-sm font-semibold tracking-wider uppercase">
                 Seamless Experience
               </span>
-              <h2 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-bold text-[#0a1628]">
+              <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#0a1628]">
                 How It <span className="gradient-text">Works</span>
               </h2>
               <div className="section-divider mt-6" />
             </div>
           </ScrollReveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {steps.map((step, i) => (
               <ScrollReveal key={step.title} delay={i * 0.12}>
                 <div className="text-center">
-                  <div className="relative">
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#0a1628] to-[#132040] flex items-center justify-center mx-auto mb-5">
-                      <step.icon className="w-9 h-9 text-[#d4a853]" />
+                  <div className="relative inline-block">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-[#0a1628] to-[#132040] flex items-center justify-center mx-auto mb-4 sm:mb-5">
+                      <step.icon className="w-7 h-7 sm:w-9 sm:h-9 text-[#d4a853]" />
                     </div>
-                    <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#d4a853] text-[#0a1628] font-bold text-sm flex items-center justify-center">
+                    <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#d4a853] text-[#0a1628] font-bold text-xs sm:text-sm flex items-center justify-center">
                       {i + 1}
                     </div>
                   </div>
-                  <h3 className="text-lg font-bold text-[#0a1628] mb-2">{step.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{step.desc}</p>
+                  <h3 className="text-sm sm:text-base md:text-lg font-bold text-[#0a1628] mb-1 sm:mb-2">{step.title}</h3>
+                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{step.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -382,20 +403,20 @@ export default function HomeSections() {
       </section>
 
       {/* ─── Insurance Partners ─── */}
-      <section className="py-12 md:py-16 bg-white">
+      <section className="py-8 sm:py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <div className="text-center mb-8">
-              <span className="text-gray-500 text-sm font-medium">Trusted Insurance Partners</span>
+            <div className="text-center mb-6 sm:mb-8">
+              <span className="text-gray-500 text-xs sm:text-sm font-medium">Trusted Insurance Partners</span>
             </div>
           </ScrollReveal>
           <ScrollReveal>
-            <div className="flex flex-wrap items-center justify-center gap-8">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8">
               {['Star Health', 'ICICI Lombard', 'HDFC ERGO', 'Bajaj Allianz', 'New India Assurance', 'United Health', 'Cigna', 'Aetna'].map(
                 (p) => (
                   <div
                     key={p}
-                    className="px-6 py-3 rounded-xl bg-gray-50 border border-gray-100 text-gray-600 font-medium text-sm"
+                    className="px-3 sm:px-6 py-2 sm:py-3 rounded-xl bg-gray-50 border border-gray-100 text-gray-600 font-medium text-xs sm:text-sm"
                   >
                     {p}
                   </div>
@@ -407,22 +428,22 @@ export default function HomeSections() {
       </section>
 
       {/* ─── CTA Section ─── */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-[#0a1628] via-[#132040] to-[#0a1628] relative overflow-hidden">
+      <section className="py-14 sm:py-20 md:py-28 bg-gradient-to-br from-[#0a1628] via-[#132040] to-[#0a1628] relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#d4a853]/5 blur-[120px]" />
-          <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/5 blur-[100px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] rounded-full bg-[#d4a853]/5 blur-[80px] sm:blur-[120px]" />
+          <div className="absolute top-1/4 left-1/4 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] rounded-full bg-[#3b82f6]/5 blur-[60px] sm:blur-[100px]" />
         </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <ScrollReveal>
-            <Stethoscope className="w-12 h-12 text-[#d4a853] mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            <Stethoscope className="w-10 h-10 sm:w-12 sm:h-12 text-[#d4a853] mx-auto mb-4 sm:mb-6" />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
               Your Health Deserves the <span className="gradient-text">Very Best</span>
             </h2>
-            <p className="mt-6 text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
               Take the first step towards world-class healthcare. Our team of specialists
               is ready to provide you with personalized, compassionate care.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-10">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -430,17 +451,17 @@ export default function HomeSections() {
                   const el = document.querySelector('#contact');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="btn-gold flex items-center gap-2 text-base"
+                className="btn-gold flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
               >
-                <Calendar className="w-5 h-5" />
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                 Book Appointment
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
               <a
                 href="tel:+911800633847"
-                className="btn-outline-gold flex items-center gap-2 text-base"
+                className="btn-outline-gold flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
               >
-                <Phone className="w-5 h-5" />
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
                 Call Now
               </a>
             </div>
